@@ -1,0 +1,6 @@
+.header{
+    composes: p-4 from global;
+    background-color: #1C1C21;
+    display: flex;
+    border: 2px solid #4C4CFF;
+}
