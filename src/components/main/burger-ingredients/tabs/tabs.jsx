@@ -21,9 +21,12 @@ export const Tabs = ()=>{
    const [current, setCurrent] = React.useState("Булки")
     return (
         <div style={{ display: 'flex' }}>
-            {data.map((item,index)=>(
-                <Tab key={index} active={current===item.value} value={item.value} onClick={setCurrent}/>
-            ))}
+            {data.map(item=>
+                (
+                <Tab key={item.value} active={current===item.value} value={item.value} onClick={setCurrent}>
+                    {item.value}
+                </Tab>))
+            }
         </div>
     )
 }
