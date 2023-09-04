@@ -20,7 +20,7 @@ export const Tabs = ()=>{
 
    const [current, setCurrent] = React.useState("Булки")
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={"pt-5 pb-10"} style={{ display: 'flex' }}>
             {data.map(item=>
                 (
                 <Tab key={item.value} active={current===item.value} value={item.value} onClick={setCurrent}>

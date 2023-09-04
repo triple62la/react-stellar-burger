@@ -1,8 +1,18 @@
-.section{
+.components{
+    overflow-y: scroll;
+    max-height: calc(100vh - 324px);
+}
+.category{
     display: flex;
     flex-direction: column;
 }
-
-.tabs{
+.title{
+    margin: 0 auto 0 0;
+    width: 100%;
+}
+.ingredients{
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 600px;
 }

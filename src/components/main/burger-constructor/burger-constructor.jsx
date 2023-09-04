@@ -2,7 +2,8 @@ import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compon
 
 export const BurgerConstructor = ()=>{
     return (
-        <>
-        </>
+        <div>
+            OGO
+        </div>
     )
 }

@@ -1,7 +1,18 @@
 .main{
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-items: center;
     align-items: center;
-
+}
+.section{
+    display: flex;
+    column-gap: 40px;
+}
+.column{
+    max-width: 600px;
+    width: 100%;
+}
+.tabs{
+    display: flex;
 }
