@@ -6,10 +6,14 @@
     row-gap: 40px;
     overflow-y: scroll;
     box-sizing: border-box;
+    max-width: 600px;
+    width: 100%;
 }
 .category{
     display: flex;
     flex-direction: column;
+
+
 }
 .title{
     margin: 0 auto 0 0;
@@ -18,7 +22,10 @@
 .ingredients{
     display: flex;
     justify-content: space-between;
+    max-width: 600px;
     flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
 }
 .ingredient{
     position: relative;

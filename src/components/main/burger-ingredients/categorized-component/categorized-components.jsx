@@ -1,6 +1,8 @@
 import classes from "../burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
+import {ingredientPropType} from "../../../../utils/prop-types";
+import PropTypes from "prop-types";
 
 export const CategorizedComponents = ({categoryName, ingredients})=>{
     return(
@@ -25,3 +27,8 @@ export const CategorizedComponents = ({categoryName, ingredients})=>{
         </li>
     )
 };
+
+CategorizedComponents.propType = {
+    categoryName:PropTypes.string.isRequired,
+    ingredients:PropTypes.arrayOf(ingredientPropType)
+}

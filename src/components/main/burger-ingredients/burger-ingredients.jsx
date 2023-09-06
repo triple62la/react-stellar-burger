@@ -1,7 +1,9 @@
 import classes from "./burger-ingredients.module.css"
-import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import clsx from "clsx";
 import {CategorizedComponents} from "./categorized-component/categorized-components";
+import PropTypes from "prop-types";
+import ingredientPropType from "../../../utils/prop-types"
+
 export const BurgerIngredients = ({data}) => {
     const buns = data.filter(item=>item.type === 'bun')
     const sauces = data.filter(item=>item.type === 'sauce')
@@ -13,4 +15,7 @@ export const BurgerIngredients = ({data}) => {
             <CategorizedComponents categoryName={"Начинки"} ingredients={mains}/>
         </ul>
     )
+}
+BurgerIngredients.propTypes = {
+    data:PropTypes.arrayOf(ingredientPropType)
 }

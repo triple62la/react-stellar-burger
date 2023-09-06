@@ -1,5 +1,6 @@
 import classes from "./link.module.css"
 import clsx from "clsx"
+import PropTypes from "prop-types";
 
 export const Link = ({children, title, isInactive=false, onClick, align}) => {
 
@@ -17,6 +18,12 @@ export const Link = ({children, title, isInactive=false, onClick, align}) => {
         <p className={clsx('text text_type_main-default pl-2', classes.navLink__caption, )}>{title}</p>
     </a>
     )
+}
+Link.propTypes = {
+    title:PropTypes.string.isRequired,
+    isInactive:PropTypes.bool,
+    onClick:PropTypes.func,
+    align:PropTypes.oneOf(["left", "center"]),
 }
 
 

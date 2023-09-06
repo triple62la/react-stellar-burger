@@ -1,14 +1,15 @@
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./burger-constructor.module.css"
 import clsx from "clsx";
-import {defaultFallbackInView} from "react-intersection-observer";
+import PropTypes from "prop-types";
+import {ingredientPropType} from "../../../utils/prop-types";
 
 
 export const BurgerConstructor = ({data})=>{
     const buns = data.filter(item=>item.type==="bun")
     const ingredients = data.filter(item=>item.type==="main")
     return (
-        <>
+        <div className={classes.wrapper}>
             <ConstructorElement extraClass={"ml-7 mt-3"} text={buns[0].name + " (верх)"} isLocked={true} thumbnail={buns[0].image} price={buns[0].price} type={"top"}/>
             <ul className={clsx(classes.container, "pt-4 pr-2 custom-scroll")}>
                 {ingredients.map(ing=>{
@@ -30,6 +31,9 @@ export const BurgerConstructor = ({data})=>{
                     Оформить заказ
                 </Button>
             </div>
-        </>
+        </div>
     )
+}
+BurgerConstructor.propTypes = {
+    data:PropTypes.arrayOf(ingredientPropType)
 }
