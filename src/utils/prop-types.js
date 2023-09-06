@@ -16,3 +16,4 @@ export const ingredientPropType = PropTypes.shape(
         __v: PropTypes.number,
     }
 );
+export default ingredientPropType;
