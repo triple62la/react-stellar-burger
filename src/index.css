@@ -1,7 +1,9 @@
 body {
   margin: 0;
+
 }
 a{
+  margin: 0;
   color: #F2F2F3;
   text-decoration: none;
 }

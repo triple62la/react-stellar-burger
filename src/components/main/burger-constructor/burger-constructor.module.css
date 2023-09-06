@@ -1,0 +1,20 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    overflow-y: scroll;
+
+    max-height: 550px;
+    row-gap:16px;
+}
+.list_item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cart_controls{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+

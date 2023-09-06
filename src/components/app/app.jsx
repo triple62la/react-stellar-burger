@@ -8,6 +8,7 @@ function App() {
     <div className={styles.app}>
         <Header/>
         <Main/>
+        {/*<footer className={styles.footer}></footer>*/}
     </div>
   );
 }
