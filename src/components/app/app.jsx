@@ -1,14 +1,12 @@
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
-import {Header} from "./header/header";
+import {AppHeader} from "./app-header/app-header";
 import {Main} from "../main/main";
 
 function App() {
   return (
     <div className={styles.app}>
-        <Header/>
+        <AppHeader/>
         <Main/>
-        {/*<footer className={styles.footer}></footer>*/}
     </div>
   );
 }

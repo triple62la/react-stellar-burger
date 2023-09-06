@@ -1,7 +1,7 @@
 import {Navigation} from "./navigation/navigation";
-import classes from "./header.module.css"
+import classes from "./app-header.module.css"
 
-export function Header(){
+export function AppHeader(){
     return (<header className={classes.header}>
        <Navigation/>
     </header>)
