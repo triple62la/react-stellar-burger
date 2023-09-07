@@ -2,10 +2,10 @@ import classes from "./link.module.css"
 import clsx from "clsx"
 import PropTypes from "prop-types";
 
-export const Link = ({children, title, isInactive=false, onClick, align}) => {
+export const Link = ({children, title, isInactive=false,  align}) => {
 
     return (
-        <a href={'/'} onClick={onClick} className={clsx(
+        <a href={'/'}  className={clsx(
             'pt-4 pb-4 pl-5 pr-5',
             classes.wrapper,
             {
@@ -22,7 +22,6 @@ export const Link = ({children, title, isInactive=false, onClick, align}) => {
 Link.propTypes = {
     title:PropTypes.string.isRequired,
     isInactive:PropTypes.bool,
-    onClick:PropTypes.func,
     align:PropTypes.oneOf(["left", "center"]),
 }
 

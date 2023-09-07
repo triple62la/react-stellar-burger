@@ -6,15 +6,15 @@ export const Tabs = ()=>{
    const data = [
        {
            value:"Булки",
-           onClick: ()=>console.log("Булки"),
+           onClick: ()=>{},
         },
        {
            value:"Соусы",
-           onClick: ()=>console.log("Соусы"),
+           onClick: ()=>{},
        },
        {
            value:"Начинки",
-           onClick: ()=>console.log("Начинки"),
+           onClick: ()=>{},
        },
    ]
 
