@@ -34,6 +34,12 @@
     align-items: center;
     width: 272px;
     box-sizing: border-box;
+    transition: box-shadow 0.5s ease;
+
+}
+.ingredient:hover{
+    cursor: pointer;
+    box-shadow:  0 0 20px 0 rgba(138, 43, 226, 0.43) ;
 }
 .price{
     display: flex;

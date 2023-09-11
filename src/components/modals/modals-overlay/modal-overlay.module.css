@@ -1,0 +1,25 @@
+.overlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content{
+    width: 200px;
+    height: 400px;
+    position: relative;
+}
+.close-btn{
+    position: absolute;
+    top: 60px;
+    right: 40px;
+}
+.hidden{
+    display: none;
+}

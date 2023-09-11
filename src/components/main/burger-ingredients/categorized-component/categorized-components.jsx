@@ -4,14 +4,17 @@ import clsx from "clsx";
 import {ingredientPropType} from "../../../../utils/prop-types";
 import PropTypes from "prop-types";
 
-export const CategorizedComponents = ({categoryName, ingredients})=>{
+export const CategorizedComponents = ({categoryName, ingredients, toggleModal})=>{
+    const handleIngClick=(ingData)=>{
+        toggleModal()
+    }
     return(
         <li className={classes.category}>
             <h2 className={clsx(classes.title, "text text_type_main-medium mt-10")}>{categoryName}</h2>
             <ul className={clsx(classes.ingredients, "pt-6 pb-6 pl-4 pr-2")}>
                 {ingredients.map((ingredient, index)=>{
                     return (
-                        <li key={ingredient._id} className={clsx(classes.ingredient)}>
+                        <li onClick={handleIngClick} key={ingredient._id} className={clsx(classes.ingredient)}>
                             {index===0 && <Counter count={1} size={"default"} extraClass={""}/>}
                             <img className={classes.image} src={ingredient.image} alt={ingredient.name}/>
                             <div className={clsx(classes.price, "pt-1 pb-1")}>

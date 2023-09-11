@@ -3,14 +3,17 @@ import classes from "./burger-constructor.module.css"
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../../utils/prop-types";
+import ModalOverlay from "../../modals/modals-overlay/modal-overlay";
+import {useState} from "react";
 
 
 export const BurgerConstructor = ({data})=>{
+
     const buns = data.filter(item=>item.type==="bun")
     const ingredients = data.filter(item=>item.type==="main")
     return (
         <div className={classes.wrapper}>
-            <ConstructorElement extraClass={"ml-7 mt-3"} text={buns[0].name + " (верх)"} isLocked={true} thumbnail={buns[0].image} price={buns[0].price} type={"top"}/>
+            <ConstructorElement  extraClass={"ml-7 mt-3"} text={buns[0].name + " (верх)"} isLocked={true} thumbnail={buns[0].image} price={buns[0].price} type={"top"}/>
             <ul className={clsx(classes.container, "pt-4 pr-2 custom-scroll")}>
                 {ingredients.map(ing=>{
                    return(
@@ -31,6 +34,7 @@ export const BurgerConstructor = ({data})=>{
                     Оформить заказ
                 </Button>
             </div>
+
         </div>
     )
 }
