@@ -9,20 +9,7 @@
     align-items: center;
     justify-content: center;
 }
-.content{
-    position: relative;
-}
-.close-btn{
-    position: absolute;
-    top: 60px;
-    right: 40px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-.close-btn:hover{
-    opacity: 0.6;
-}
+
 .hidden{
     display: none;
 }
