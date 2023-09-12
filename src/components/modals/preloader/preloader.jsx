@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from "./preloader.module.css";
 import clsx from "clsx";
+import PropTypes from "prop-types";
 
 const Preloader = ({isVisible, fetchStatus, image}) => {
     return (
@@ -11,4 +12,9 @@ const Preloader = ({isVisible, fetchStatus, image}) => {
     );
 };
 
+Preloader.propTypes={
+    isVisible:PropTypes.bool.isRequired,
+    fetchStatus:PropTypes.oneOf(["loading", "error"]),
+    image:PropTypes.any
+}
 export default Preloader;
