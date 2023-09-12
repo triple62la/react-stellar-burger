@@ -3,7 +3,6 @@ import clsx from "clsx";
 import {BurgerIngredients} from "./burger-ingredients/burger-ingredients";
 import {BurgerConstructor} from "./burger-constructor/burger-constructor";
 import {Tabs} from "./tabs/tabs";
-import {data} from "../../utils/data";
 
 export const Main = ({ingredients})=>(
     <main className={classes.main}>
