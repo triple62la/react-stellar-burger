@@ -4,21 +4,24 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #000;
-    opacity: 0.6;
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .content{
-    width: 200px;
-    height: 400px;
     position: relative;
 }
 .close-btn{
     position: absolute;
     top: 60px;
     right: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.close-btn:hover{
+    opacity: 0.6;
 }
 .hidden{
     display: none;

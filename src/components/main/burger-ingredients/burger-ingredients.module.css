@@ -40,6 +40,7 @@
 .ingredient:hover{
     cursor: pointer;
     box-shadow:  0 0 20px 0 rgba(138, 43, 226, 0.43) ;
+    border-radius: 10px;
 }
 .price{
     display: flex;
