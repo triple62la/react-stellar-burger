@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from "./ingredient-details.module.css";
 import clsx from "clsx";
+import PropTypes from "prop-types";
 
 const IngredientDetails = ({ingredientData}) => {
     return (
@@ -29,5 +30,16 @@ const IngredientDetails = ({ingredientData}) => {
         </div>
     );
 };
+
+IngredientDetails.propTypes={
+    ingredientData:PropTypes.shape({
+        image:PropTypes.string,
+        name:PropTypes.string,
+        calories:PropTypes.string,
+        proteins:PropTypes.string,
+        fat:PropTypes.string,
+        carbohydrates:PropTypes.string
+    }).isRequired
+}
 
 export default IngredientDetails;
