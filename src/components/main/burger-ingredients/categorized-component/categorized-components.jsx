@@ -1,10 +1,12 @@
+import {memo} from "react";
 import classes from "../burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import {ingredientPropType} from "../../../../utils/prop-types";
 import PropTypes from "prop-types";
 
-export const CategorizedComponents = ({categoryName, ingredients, setIngredientData, setModalVisible})=>{
+const CategorizedComponents = ({categoryName, ingredients, setIngredientData, setModalVisible})=>{
+
     const handleIngClick=(ingData)=>{
         setIngredientData(ingData)
         setModalVisible(true)
@@ -32,7 +34,15 @@ export const CategorizedComponents = ({categoryName, ingredients, setIngredientD
     )
 };
 
+const areEqual = ({categoryName:_categoryName, ingredients:_ingredients}, {categoryName,ingredients})=>{
+    return [
+        _categoryName!==categoryName,
+        JSON.stringify(_ingredients)!==JSON.stringify(ingredients)
+    ].any
+}
+
 CategorizedComponents.propType = {
     categoryName:PropTypes.string.isRequired,
     ingredients:PropTypes.arrayOf(ingredientPropType)
 }
+export default memo(CategorizedComponents, areEqual)

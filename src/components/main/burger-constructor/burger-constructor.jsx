@@ -4,14 +4,18 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../../utils/prop-types";
 import ModalOverlay from "../../modals/modals-overlay/modal-overlay";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import OrderDetalis from "../../modals/order-details/order-detalis";
 
 
 export const BurgerConstructor = ({data})=>{
 
-    const buns = data.filter(item=>item.type==="bun")
-    const ingredients = data.filter(item=>item.type==="main")
+    const {buns,ingredients} =  useMemo(()=>{
+        return {
+            buns: data.filter(item=>item.type==="bun"),
+            ingredients: data.filter(item=>item.type==="main")
+        }
+    }, [data])
     const [modalIsVisible, setModalVisible]=useState(false)
     const closeModal = ()=>{
         setModalVisible(false)

@@ -3,8 +3,8 @@ import {AppHeader} from "./app-header/app-header";
 import {Main} from "../main/main";
 import Preloader from "../modals/preloader/preloader";
 import {useEffect, useState} from "react";
-import {apiUrl, data} from "../../utils/data";
-import preloaderGif from "../../../src/assets/images/loader.png";
+import {apiUrl} from "../../utils/data";
+import preloaderGif from "../../../src/assets/images/loader2.png";
 
 function App() {
     const [fetchStatus, setFetchStatus] = useState("loading")
@@ -34,8 +34,8 @@ function App() {
   return (
     <div className={styles.app}>
         <AppHeader/>
-        <Main ingredients={ingredients}/>
-        <Preloader isVisible={preloaderIsVisible} fetchStatus={fetchStatus} image={preloaderGif}/>
+        {!preloaderIsVisible && <Main ingredients={ingredients}/>}
+        {preloaderIsVisible && <Preloader fetchStatus={fetchStatus} image={preloaderGif}/>}
     </div>
   );
 }

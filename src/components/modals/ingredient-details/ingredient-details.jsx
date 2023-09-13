@@ -35,10 +35,10 @@ IngredientDetails.propTypes={
     ingredientData:PropTypes.shape({
         image:PropTypes.string,
         name:PropTypes.string,
-        calories:PropTypes.string,
-        proteins:PropTypes.string,
-        fat:PropTypes.string,
-        carbohydrates:PropTypes.string
+        calories:PropTypes.number,
+        proteins:PropTypes.number,
+        fat:PropTypes.number,
+        carbohydrates:PropTypes.number
     }).isRequired
 }
 

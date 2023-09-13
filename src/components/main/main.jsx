@@ -1,6 +1,6 @@
 import classes from "./main.module.css"
 import clsx from "clsx";
-import {BurgerIngredients} from "./burger-ingredients/burger-ingredients";
+import BurgerIngredients from "./burger-ingredients/burger-ingredients";
 import {BurgerConstructor} from "./burger-constructor/burger-constructor";
 import {Tabs} from "./tabs/tabs";
 

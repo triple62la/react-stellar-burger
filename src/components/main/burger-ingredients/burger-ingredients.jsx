@@ -1,19 +1,24 @@
 import classes from "./burger-ingredients.module.css"
 import clsx from "clsx";
-import {CategorizedComponents} from "./categorized-component/categorized-components";
+import CategorizedComponents from "./categorized-component/categorized-components";
 import PropTypes from "prop-types";
 import ingredientPropType from "../../../utils/prop-types"
 import ModalOverlay from "../../modals/modals-overlay/modal-overlay";
 import IngredientDetails from "../../modals/ingredient-details/ingredient-details";
-import {useState} from "react";
+import {memo, useCallback, useMemo, useState} from "react";
 
-export const BurgerIngredients = ({data}) => {
-    const buns = data.filter(item=>item.type === 'bun')
-    const sauces = data.filter(item=>item.type === 'sauce')
-    const mains = data.filter(item=>item.type === 'main')
+const BurgerIngredients = ({data}) => {
+    const {buns,sauces, mains} = useMemo(()=>{
+        return {
+             buns : data.filter(item=>item.type === 'bun'),
+             sauces : data.filter(item=>item.type === 'sauce'),
+             mains : data.filter(item=>item.type === 'main'),
+        }
+    },[data])
+
     const [modalIsVisible, setModalVisible] = useState(false)
     const [ingredientData, setIngredientData] = useState({})
-    const closeModal = ()=>setModalVisible(false)
+    const closeModal = useCallback(()=>setModalVisible(false), [])
     return (
         <>
             <ul className={clsx(classes.components,'custom-scroll')}>
@@ -36,3 +41,4 @@ export const BurgerIngredients = ({data}) => {
 BurgerIngredients.propTypes = {
     data:PropTypes.arrayOf(ingredientPropType)
 }
+export default memo(BurgerIngredients)
