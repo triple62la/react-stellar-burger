@@ -3,8 +3,8 @@ import {AppHeader} from "./app-header/app-header";
 import {Main} from "../main/main";
 import Preloader from "../modals/preloader/preloader";
 import {useEffect, useState} from "react";
-import {apiUrl} from "../../utils/data";
-import preloaderGif from "../../../src/assets/images/loader2.png";
+import preloaderGif from "../../../src/assets/images/loader.png";
+import {getIngredients} from "../../utils/api";
 
 function App() {
     const [fetchStatus, setFetchStatus] = useState("loading")
@@ -12,25 +12,17 @@ function App() {
     const [ingredients, setIngredients] = useState([]);
     useEffect( ()=>{
         setPreloaderVisible(true)
-        const fetchData = ()=> {
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        setFetchStatus("error")
-                        setIngredients([])
-                    }
-                    return response.json()
-                })
-                .then(data => {
-                    setIngredients(data.data)
-                })
-                .catch(() => {
-                    setFetchStatus("error")
-                })
-                .finally(()=>setPreloaderVisible(false))
+        const fetchData = async ()=> {
+        try{
+            const ingredients = await getIngredients()
+            setIngredients(ingredients)
+            setPreloaderVisible(false)
         }
-        fetchData()
-    }, [])
+        catch (err){
+            setFetchStatus("error")
+        }
+        }
+        fetchData()},[])
   return (
     <div className={styles.app}>
         <AppHeader/>

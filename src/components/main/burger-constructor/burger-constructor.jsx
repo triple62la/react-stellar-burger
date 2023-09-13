@@ -3,9 +3,10 @@ import classes from "./burger-constructor.module.css"
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../../utils/prop-types";
-import ModalOverlay from "../../modals/modals-overlay/modal-overlay";
+import ModalOverlay from "../../modals/modal/modal-overlay/modal-overlay";
 import {useMemo, useState} from "react";
-import OrderDetalis from "../../modals/order-details/order-detalis";
+import OrderDetalis from "../order-details/order-detalis";
+import Modal from "../../modals/modal/modal";
 
 
 export const BurgerConstructor = ({data})=>{
@@ -46,9 +47,9 @@ export const BurgerConstructor = ({data})=>{
                     Оформить заказ
                 </Button>
             </div>
-            <ModalOverlay closeModal={closeModal} isVisible={modalIsVisible} >
+            {modalIsVisible && <Modal closeModal={closeModal}>
                 <OrderDetalis/>
-            </ModalOverlay>
+            </Modal>}
         </div>
     )
 }

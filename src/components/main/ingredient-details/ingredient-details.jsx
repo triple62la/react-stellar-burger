@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from "./ingredient-details.module.css";
 import clsx from "clsx";
-import PropTypes from "prop-types";
+import ingredientPropType from "../../../utils/prop-types";
 
 const IngredientDetails = ({ingredientData}) => {
+
     return (
         <div className={classes.content}>
             <h2 className={clsx(classes.title, "text text_type_main-large mt-4 mb-3")}>Детали ингредиента</h2>
@@ -32,14 +33,8 @@ const IngredientDetails = ({ingredientData}) => {
 };
 
 IngredientDetails.propTypes={
-    ingredientData:PropTypes.shape({
-        image:PropTypes.string,
-        name:PropTypes.string,
-        calories:PropTypes.number,
-        proteins:PropTypes.number,
-        fat:PropTypes.number,
-        carbohydrates:PropTypes.number
-    }).isRequired
+
+    ingredientData:ingredientPropType
 }
 
 export default IngredientDetails;

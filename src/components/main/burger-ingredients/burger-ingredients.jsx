@@ -3,9 +3,9 @@ import clsx from "clsx";
 import CategorizedComponents from "./categorized-component/categorized-components";
 import PropTypes from "prop-types";
 import ingredientPropType from "../../../utils/prop-types"
-import ModalOverlay from "../../modals/modals-overlay/modal-overlay";
-import IngredientDetails from "../../modals/ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import {memo, useCallback, useMemo, useState} from "react";
+import Modal from "../../modals/modal/modal";
 
 const BurgerIngredients = ({data}) => {
     const {buns,sauces, mains} = useMemo(()=>{
@@ -16,25 +16,21 @@ const BurgerIngredients = ({data}) => {
         }
     },[data])
 
-    const [modalIsVisible, setModalVisible] = useState(false)
-    const [ingredientData, setIngredientData] = useState({})
-    const closeModal = useCallback(()=>setModalVisible(false), [])
+    const [ingredientData, setIngredientData] = useState(null)
+    const closeModal = useCallback(()=>setIngredientData(null), [])
     return (
         <>
             <ul className={clsx(classes.components,'custom-scroll')}>
                 <CategorizedComponents categoryName={"Булки"} ingredients={buns}
-                                       setModalVisible={setModalVisible}
                                        setIngredientData={setIngredientData}/>
                 <CategorizedComponents categoryName={"Coусы"} ingredients={sauces}
-                                       setModalVisible={setModalVisible}
                                        setIngredientData={setIngredientData}/>
                 <CategorizedComponents categoryName={"Начинки"} ingredients={mains}
-                                       setModalVisible={setModalVisible}
                                        setIngredientData={setIngredientData}/>
             </ul>
-            <ModalOverlay closeModal={closeModal} isVisible={modalIsVisible}>
+            {ingredientData &&<Modal closeModal={closeModal} >
                 <IngredientDetails ingredientData={ingredientData}/>
-            </ModalOverlay>
+            </Modal>}
         </>
     )
 }

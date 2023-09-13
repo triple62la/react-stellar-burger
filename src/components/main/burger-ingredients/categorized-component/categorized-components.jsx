@@ -5,11 +5,10 @@ import clsx from "clsx";
 import {ingredientPropType} from "../../../../utils/prop-types";
 import PropTypes from "prop-types";
 
-const CategorizedComponents = ({categoryName, ingredients, setIngredientData, setModalVisible})=>{
+const CategorizedComponents = ({categoryName, ingredients, setIngredientData})=>{
 
     const handleIngClick=(ingData)=>{
-        setIngredientData(ingData)
-        setModalVisible(true)
+        return ()=>setIngredientData(ingData)
     }
     return(
         <li className={classes.category}>
@@ -17,7 +16,7 @@ const CategorizedComponents = ({categoryName, ingredients, setIngredientData, se
             <ul className={clsx(classes.ingredients, "pt-6 pb-6 pl-4 pr-2")}>
                 {ingredients.map((ingredient, index)=>{
                     return (
-                        <li onClick={()=>handleIngClick(ingredient)} key={ingredient._id} className={clsx(classes.ingredient)}>
+                        <li onClick={handleIngClick(ingredient)} key={ingredient._id} className={clsx(classes.ingredient)}>
                             {index===0 && <Counter count={1} size={"default"} extraClass={""}/>}
                             <img className={classes.image} src={ingredient.image} alt={ingredient.name}/>
                             <div className={clsx(classes.price, "pt-1 pb-1")}>
@@ -26,7 +25,6 @@ const CategorizedComponents = ({categoryName, ingredients, setIngredientData, se
                             </div>
                             <p className={clsx(classes.ingredient_name,"text text_type_main-default")}>{ingredient.name}</p>
                         </li>
-
                         )
                 })}
             </ul>
