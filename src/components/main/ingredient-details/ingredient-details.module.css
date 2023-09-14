@@ -1,0 +1,46 @@
+.content{
+    box-sizing: border-box;
+    width: 720px;
+    border-radius: 40px;
+    background-color: #1C1C21;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.title{
+    width: 100%;
+
+}
+.ingredient-image {
+    width: 480px;
+    height: 240px;
+}
+.ingredient-name{
+    margin: 0;
+}
+
+.nutrients{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    column-gap: 20px;
+    padding: 32px 0 0;
+    padding-inline: 0;
+    list-style: none;
+    margin-block: 0;
+    margin-inline: 0;
+    max-width: 520px;
+    width: 100%;
+    padding-left: 10px;
+}
+.nutrient{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 8px;
+    max-width: 120px;
+    width: 100%;
+
+}
