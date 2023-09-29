@@ -1,0 +1,18 @@
+.wrapper{
+    display: flex;
+}
+.content{
+    position: relative;
+    margin: auto;
+}
+.close-btn{
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.close-btn:hover{
+    opacity: 0.6;
+}
