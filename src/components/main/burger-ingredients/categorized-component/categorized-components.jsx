@@ -1,14 +1,20 @@
-import {memo} from "react";
+import {memo, useContext} from "react";
 import classes from "../burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import {ingredientPropType} from "../../../../utils/prop-types";
 import PropTypes from "prop-types";
+import {ConstructorContext} from "../../../../services/appContext";
+import uuid from "../../../../utils/id-helper";
 
-const CategorizedComponents = ({categoryName, ingredients, setIngredientData})=>{
 
-    const handleIngClick=(ingData)=>{
-        return ()=>setIngredientData(ingData)
+const CategorizedComponents = ({categoryName, ingredients})=>{
+
+    const { constructorDispatcher} = useContext(ConstructorContext)
+
+    const handleIngClick=(ingredient)=>{
+        const ingData = {...ingredient, uuid:uuid()}
+        return ()=>constructorDispatcher({type:"add", payload:ingData})
     }
     return(
         <li className={classes.category}>

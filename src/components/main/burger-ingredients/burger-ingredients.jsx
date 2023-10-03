@@ -4,29 +4,32 @@ import CategorizedComponents from "./categorized-component/categorized-component
 import PropTypes from "prop-types";
 import ingredientPropType from "../../../utils/prop-types"
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import {memo, useCallback, useMemo, useState} from "react";
+import {memo, useCallback, useContext, useMemo, useState} from "react";
 import Modal from "../../modals/modal/modal";
+import {IngredientsContext} from "../../../services/appContext";
 
-const BurgerIngredients = ({data}) => {
+
+
+
+const BurgerIngredients = () => {
+    const {ingredients} = useContext(IngredientsContext)
+
     const {buns,sauces, mains} = useMemo(()=>{
         return {
-             buns : data.filter(item=>item.type === 'bun'),
-             sauces : data.filter(item=>item.type === 'sauce'),
-             mains : data.filter(item=>item.type === 'main'),
+             buns : ingredients.filter(item=>item.type === 'bun'),
+             sauces : ingredients.filter(item=>item.type === 'sauce'),
+             mains : ingredients.filter(item=>item.type === 'main'),
         }
-    },[data])
+    },[ingredients])
 
     const [ingredientData, setIngredientData] = useState(null)
     const closeModal = useCallback(()=>setIngredientData(null), [])
     return (
         <>
             <ul className={clsx(classes.components,'custom-scroll')}>
-                <CategorizedComponents categoryName={"Булки"} ingredients={buns}
-                                       setIngredientData={setIngredientData}/>
-                <CategorizedComponents categoryName={"Coусы"} ingredients={sauces}
-                                       setIngredientData={setIngredientData}/>
-                <CategorizedComponents categoryName={"Начинки"} ingredients={mains}
-                                       setIngredientData={setIngredientData}/>
+                <CategorizedComponents categoryName={"Булки"} ingredients={buns}/>
+                <CategorizedComponents categoryName={"Coусы"} ingredients={sauces}/>
+                <CategorizedComponents categoryName={"Начинки"} ingredients={mains}/>
             </ul>
             {ingredientData &&<Modal closeModal={closeModal} >
                 <IngredientDetails ingredientData={ingredientData}/>

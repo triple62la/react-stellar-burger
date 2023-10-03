@@ -11,18 +11,35 @@
     flex-direction: column;
     max-width: 600px;
     overflow-y: scroll;
-    width: 100%;
     max-height: 550px;
     row-gap:16px;
+}
+.no_ingredients{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 0 10px;
+    min-height: 550px;
+}
+.no_scroll{
+    overflow-y: hidden;
 }
 .list_item{
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+}
+.bun{
+    max-height: 48px;
 }
 .cart_controls{
     display: flex;
     justify-content: right;
     align-items: center;
+}
+.no_ingredients{
+   text-align: center;
 }
 
