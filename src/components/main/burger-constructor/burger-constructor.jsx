@@ -12,17 +12,14 @@ import {getOrderNum} from "../../../utils/api";
 export const BurgerConstructor = ()=>{
     const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
     const {buns,ingredients} =  useMemo(()=>{
-        let buns = constructorState.ingredients.filter(item=>item.type==="bun")
-        buns = buns.length>1? [buns.pop()] : buns
         return {
-            buns,
+            buns:constructorState.ingredients.filter(item=>item.type==="bun"),
             ingredients: constructorState.ingredients.filter(item=>item.type!=="bun"),
         }
     }, [constructorState.ingredients])
     const [modalIsVisible, setModalVisible]=useState(false)
-    const [orderId, setOrderId] = useState("")
+    const [orderId, setOrderId] = useState(0)
     const onTrashClick = ingredientData => () => constructorDispatcher({type:"delete", payload:ingredientData})
-
     const closeModal = ()=>{
         setModalVisible(false)
     }
@@ -66,7 +63,7 @@ export const BurgerConstructor = ()=>{
                 <p className="text text_type_digits-medium pr-10">{constructorState.cost}
                     <CurrencyIcon  type="primary"/>
                 </p>
-                <Button onClick={openModal}  htmlType="button" type="primary" size="large">
+                <Button onClick={openModal}  htmlType="button" type="primary" size="large" disabled={!buns.length && !ingredients.length}>
                     Оформить заказ
                 </Button>
             </div>
