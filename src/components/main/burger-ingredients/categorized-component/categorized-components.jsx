@@ -10,11 +10,18 @@ import uuid from "../../../../utils/id-helper";
 
 const CategorizedComponents = ({categoryName, ingredients})=>{
 
-    const { constructorDispatcher} = useContext(ConstructorContext)
+    const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
 
-    const handleIngClick=(ingredient)=>{
+    const handleIngClick=(ingredient)=>()=>{
         const ingData = {...ingredient, uuid:uuid()}
-        return ()=>constructorDispatcher({type:"add", payload:ingData})
+        //необходимо пересоздать ингредиент и наделить его uuid
+        if (ingData.type === "bun"){
+           const bun = constructorState.ingredients.find(item=>item.type ==="bun")
+           if (bun) constructorDispatcher({type:"delete", payload:bun})
+            // так как в ингредиентах может быть только один тип булок
+            // прежде чем добавлять булку нужно удалить старую
+       }
+       constructorDispatcher({type:"add", payload:ingData})
     }
     return(
         <li className={classes.category}>

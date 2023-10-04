@@ -7,6 +7,7 @@ import {useContext, useMemo, useState} from "react";
 import OrderDetalis from "../order-details/order-detalis";
 import Modal from "../../modals/modal/modal";
 import {ConstructorContext} from "../../../services/appContext";
+import {getOrderNum} from "../../../utils/api";
 
 export const BurgerConstructor = ()=>{
     const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
@@ -19,13 +20,19 @@ export const BurgerConstructor = ()=>{
         }
     }, [constructorState.ingredients])
     const [modalIsVisible, setModalVisible]=useState(false)
+    const [orderId, setOrderId] = useState("")
     const onTrashClick = ingredientData => () => constructorDispatcher({type:"delete", payload:ingredientData})
 
     const closeModal = ()=>{
         setModalVisible(false)
     }
     const openModal = ()=>{
-        setModalVisible(true)
+        getOrderNum(constructorState.ingredients.map(item=>item._id))
+            .then(number=>{
+                setOrderId(number)
+                setModalVisible(true)
+            })
+            .catch(err=>alert("Произошла ошибка во время обработки заказа"))
     }
     return (
         <div className={classes.wrapper}>
@@ -64,7 +71,7 @@ export const BurgerConstructor = ()=>{
                 </Button>
             </div>
             {modalIsVisible && <Modal closeModal={closeModal}>
-                <OrderDetalis/>
+                <OrderDetalis orderId={orderId}/>
             </Modal>}
         </div>
     )

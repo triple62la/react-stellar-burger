@@ -22,13 +22,13 @@ function App() {
                 return{
                     ...state,
                     ingredients: [...state.ingredients, action.payload],
-                    cost: state.cost + action.payload.price
+                    cost: action.payload.type==="bun"? state.cost + action.payload.price * 2 : state.cost + action.payload.price
                 }
             case "delete":
                 return{
                     ...state,
                     ingredients: [...state.ingredients.filter((item)=>action.payload.uuid!==item.uuid)],
-                    cost: state.cost - action.payload.price
+                    cost: action.payload.type==="bun"? state.cost - action.payload.price * 2 : state.cost - action.payload.price
                 }
             default:
                 return state
@@ -50,7 +50,6 @@ function App() {
         fetchData()},[])
   return (
     <div className={styles.app}>
-
         <AppHeader/>
         <IngredientsContext.Provider value={{ingredients, setIngredients}}>
             <ConstructorContext.Provider value={{constructorState, constructorDispatcher}}>

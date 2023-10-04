@@ -17,10 +17,10 @@ const OrderDetalis = ({orderId}) => {
 };
 
 OrderDetalis.propTypes = {
-    orderId:PropTypes.string
+    orderId:PropTypes.number
 }
 OrderDetalis.defaultProps = {
-    orderId:"034536"
+    orderId:"------"
 }
 
 export default OrderDetalis;
