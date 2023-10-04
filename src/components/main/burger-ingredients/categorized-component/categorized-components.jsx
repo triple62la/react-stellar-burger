@@ -31,9 +31,6 @@ const CategorizedComponents = ({categoryName, ingredients})=>{
                     return (
                         <li onClick={handleIngClick(ingredient)} key={ingredient._id} className={classes.ingredient}>
 
-                            //функционал открытия модалки об ингредиенте был намеренно
-                            //временно выпилен в угоду функционала добавления в конструктор по клику
-
                             {index===0 && <Counter count={1} size={"default"} extraClass={""}/>}
                             <img className={classes.image} src={ingredient.image} alt={ingredient.name}/>
                             <div className={clsx(classes.price, "pt-1 pb-1")}>
