@@ -33,6 +33,8 @@ const BurgerIngredients = () => {
             </ul>
             {ingredientData &&<Modal closeModal={closeModal} >
                 <IngredientDetails ingredientData={ingredientData}/>
+                //функционал открытия модалки об ингредиенте был намеренно
+                //временно выпилен в угоду функционала добавления в конструктор по клику
             </Modal>}
         </>
     )
