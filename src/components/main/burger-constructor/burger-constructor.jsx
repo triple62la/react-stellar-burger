@@ -9,7 +9,14 @@ import Modal from "../../modals/modal/modal";
 import {ConstructorContext} from "../../../services/appContext";
 import {getOrderNum} from "../../../utils/api";
 
-export const BurgerConstructor = ()=>{
+const mapStateToProps = (store)=>({
+    orderModal:store.orderModal
+})
+
+const BurgerConstructor = (props)=>{
+
+
+    const {modalIsVisible} = props.orderModal.isVisible
     const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
     const {buns,ingredients} =  useMemo(()=>{
         return {
@@ -17,7 +24,7 @@ export const BurgerConstructor = ()=>{
             ingredients: constructorState.ingredients.filter(item=>item.type!=="bun"),
         }
     }, [constructorState.ingredients])
-    const [modalIsVisible, setModalVisible]=useState(false)
+
     const [orderId, setOrderId] = useState(0)
     const onTrashClick = ingredientData => () => constructorDispatcher({type:"delete", payload:ingredientData})
     const closeModal = ()=>{
@@ -76,3 +83,4 @@ export const BurgerConstructor = ()=>{
 BurgerConstructor.propTypes = {
     data:PropTypes.arrayOf(ingredientPropType)
 }
+export default connect(mapStateToProps)(BurgerConstructor)

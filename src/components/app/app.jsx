@@ -2,7 +2,7 @@ import styles from "./app.module.css";
 import {AppHeader} from "./app-header/app-header";
 import {Main} from "../main/main";
 import Preloader from "../modals/preloader/preloader";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useMemo, useReducer, useState} from "react";
 import preloaderGif from "../../../src/assets/images/loader.png";
 import {getIngredients} from "../../utils/api";
 import {IngredientsContext, ConstructorContext} from "../../services/appContext"
@@ -11,11 +11,14 @@ import {IngredientsContext, ConstructorContext} from "../../services/appContext"
 const constructorInitState = {ingredients:[], cost:0}
 
 function App() {
+    console.log("app rerendered")
     const [fetchStatus, setFetchStatus] = useState("loading")
     const [preloaderIsVisible, setPreloaderVisible] = useState(false)
     const [ingredients, setIngredients] = useState([])
     const [constructorState, constructorDispatcher] = useReducer(constructorReducer, constructorInitState, undefined)
-
+    const constructorReducerMemo = useMemo(
+        ()=>({constructorState, constructorDispatcher}),
+        [constructorState])
     function constructorReducer(state, action){
         switch(action.type){
             case "add":
@@ -52,7 +55,7 @@ function App() {
     <div className={styles.app}>
         <AppHeader/>
         <IngredientsContext.Provider value={{ingredients, setIngredients}}>
-            <ConstructorContext.Provider value={{constructorState, constructorDispatcher}}>
+            <ConstructorContext.Provider value={{...constructorReducerMemo}}>
             {!preloaderIsVisible && <Main />}
             </ConstructorContext.Provider>
         </IngredientsContext.Provider>

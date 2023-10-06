@@ -7,13 +7,19 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {memo, useCallback, useContext, useMemo, useState} from "react";
 import Modal from "../../modals/modal/modal";
 import {IngredientsContext} from "../../../services/appContext";
+import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 
 
 
 
 const BurgerIngredients = () => {
-    const {ingredients} = useContext(IngredientsContext)
+    const mapStateToProps = (state)=>{
 
+    }
+
+
+    const {ingredients} = useContext(IngredientsContext)
+    console.log("ингры перерендерились")
     const {buns,sauces, mains} = useMemo(()=>{
         return {
              buns : ingredients.filter(item=>item.type === 'bun'),
@@ -33,9 +39,7 @@ const BurgerIngredients = () => {
             </ul>
             {ingredientData &&<Modal closeModal={closeModal} >
                 <IngredientDetails ingredientData={ingredientData}/>
-                //функционал открытия модалки об ингредиенте был намеренно
-                //временно выпилен в угоду функционала добавления в конструктор по клику
-            </Modal>}
+                            </Modal>}
         </>
     )
 }
