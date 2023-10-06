@@ -18,7 +18,7 @@ export function Navigation (){
                 <ListIcon type="secondary"/>
             </Link>
         </div>
-            <a href="" className={classes.logo}>
+            <a href="/" className={classes.logo}>
                 <Logo/>
             </a>
 
