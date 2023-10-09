@@ -8,15 +8,15 @@ import OrderDetalis from "../order-details/order-detalis";
 import Modal from "../../modals/modal/modal";
 import {ConstructorContext} from "../../../services/appContext";
 import {getOrderNum} from "../../../utils/api";
-
-const mapStateToProps = (store)=>({
-    orderModal:store.orderModal
-})
-
-const BurgerConstructor = (props)=>{
+import {useDispatch, useSelector} from "react-redux";
+import {setIsVisible} from "../../../services/orderModal/orderModalSlice";
 
 
-    const {modalIsVisible} = props.orderModal.isVisible
+
+export const BurgerConstructor = ()=>{
+
+    const dispatch = useDispatch()
+    const modalIsVisible = useSelector(state => state.orderModal.isVisible)
     const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
     const {buns,ingredients} =  useMemo(()=>{
         return {
@@ -25,10 +25,10 @@ const BurgerConstructor = (props)=>{
         }
     }, [constructorState.ingredients])
 
-    const [orderId, setOrderId] = useState(0)
+
     const onTrashClick = ingredientData => () => constructorDispatcher({type:"delete", payload:ingredientData})
     const closeModal = ()=>{
-        setModalVisible(false)
+        dispatch(setIsVisible(false))
     }
     const openModal = ()=>{
         getOrderNum(constructorState.ingredients.map(item=>item._id))
@@ -83,4 +83,3 @@ const BurgerConstructor = (props)=>{
 BurgerConstructor.propTypes = {
     data:PropTypes.arrayOf(ingredientPropType)
 }
-export default connect(mapStateToProps)(BurgerConstructor)

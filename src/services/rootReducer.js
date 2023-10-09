@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
-import {orderModalReducer} from "./orderModal/orderModalReducer";
+import orderModalSlice from "./orderModal/orderModalSlice";
 
 export const rootReducer = combineReducers({
-    orderModal:orderModalReducer,
+    orderModal:orderModalSlice,
 
 })
