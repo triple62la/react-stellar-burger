@@ -3,13 +3,12 @@ import classes from "./burger-constructor.module.css"
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../../utils/prop-types";
-import {useContext, useMemo, useState} from "react";
-import OrderDetalis from "../order-details/order-detalis";
+import {useContext, useMemo} from "react";
+import OrderDetails from "../order-details/order-details";
 import Modal from "../../modals/modal/modal";
-import {ConstructorContext} from "../../../services/appContext";
 import {getOrderNum} from "../../../utils/api";
 import {useDispatch, useSelector} from "react-redux";
-import {setIsVisible} from "../../../services/orderModal/orderModalSlice";
+import {setIsVisible, setOrderId} from "../../../services/order-modal/orderModalSlice";
 
 
 
@@ -17,7 +16,7 @@ export const BurgerConstructor = ()=>{
 
     const dispatch = useDispatch()
     const modalIsVisible = useSelector(state => state.orderModal.isVisible)
-    const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
+    // const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
     const {buns,ingredients} =  useMemo(()=>{
         return {
             buns:constructorState.ingredients.filter(item=>item.type==="bun"),
@@ -33,10 +32,13 @@ export const BurgerConstructor = ()=>{
     const openModal = ()=>{
         getOrderNum(constructorState.ingredients.map(item=>item._id))
             .then(number=>{
-                setOrderId(number)
-                setModalVisible(true)
+                dispatch(setOrderId(number))
+                dispatch(setIsVisible(true))
             })
-            .catch(err=>alert("Произошла ошибка во время обработки заказа"))
+            .catch(err=>{
+                alert("Произошла ошибка во время обработки заказа")
+                console.error(err)
+            })
     }
     return (
         <div className={classes.wrapper}>
@@ -47,8 +49,8 @@ export const BurgerConstructor = ()=>{
             <ul className={clsx(classes.container,
                 "pt-4 pr-2 custom-scroll",
                 {[classes.no_ingredients]:!buns.length && !ingredients.length,
-                    [classes.no_scroll]:ingredients.length<=4})
-            }>
+                    [classes.no_scroll]:ingredients.length<=4})}>
+
                 { !buns.length && !ingredients.length && <p className={clsx(classes.no_ingredients,"text text_color_inactive")}>
                     Кликните на игнредиент, чтобы собрать свой сочнейший бургер</p>}
 
@@ -75,7 +77,7 @@ export const BurgerConstructor = ()=>{
                 </Button>
             </div>
             {modalIsVisible && <Modal closeModal={closeModal}>
-                <OrderDetalis orderId={orderId}/>
+                <OrderDetails />
             </Modal>}
         </div>
     )

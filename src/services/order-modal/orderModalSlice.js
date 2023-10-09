@@ -12,7 +12,7 @@ export const orderModalSlice = createSlice({
         setIsVisible:(state,{payload})=>{
             state.isVisible=payload
         },
-        setOrderId:(state, {payload})=>state.orderId = payload
+        setOrderId:(state, {payload})=>void(state.orderId = payload)
     }
 })
 export const {setIsVisible, setOrderId} = orderModalSlice.actions

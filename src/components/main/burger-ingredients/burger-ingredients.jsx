@@ -13,13 +13,9 @@ import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 
 
 const BurgerIngredients = () => {
-    const mapStateToProps = (state)=>{
-
-    }
 
 
     const {ingredients} = useContext(IngredientsContext)
-    console.log("ингры перерендерились")
     const {buns,sauces, mains} = useMemo(()=>{
         return {
              buns : ingredients.filter(item=>item.type === 'bun'),

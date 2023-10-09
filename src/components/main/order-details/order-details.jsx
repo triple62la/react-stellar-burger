@@ -3,8 +3,10 @@ import classes from "./order-details.module.css"
 import PropTypes from "prop-types";
 import orderSuccessImage from "../../../assets/images/submitted-order.svg"
 import clsx from "clsx";
+import {useSelector} from "react-redux";
 
-const OrderDetalis = ({orderId}) => {
+const OrderDetails = () => {
+    const orderId= useSelector(state=>state.orderModal.orderId)
     return (
             <div className={clsx(classes.content, "pt-30 pb-30 pl-25 pr-25")}>
                 <h2 className="text text_type_digits-large">{orderId}</h2>
@@ -16,11 +18,5 @@ const OrderDetalis = ({orderId}) => {
     );
 };
 
-OrderDetalis.propTypes = {
-    orderId:PropTypes.number
-}
-OrderDetalis.defaultProps = {
-    orderId:"------"
-}
 
-export default OrderDetalis;
+export default OrderDetails;
