@@ -3,20 +3,29 @@ import classes from "./burger-constructor.module.css"
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../../utils/prop-types";
+import {ConstructorContext} from "../../../services/appContext";
 import {useContext, useMemo} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../../modals/modal/modal";
 import {getOrderNum} from "../../../utils/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsVisible, setOrderId} from "../../../services/order-modal/orderModalSlice";
+import {useDrop} from "react-dnd";
 
 
 
 export const BurgerConstructor = ()=>{
 
+    const [{isHover}, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop: (item, monitor)=>console.log(item),
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        })
+    });
     const dispatch = useDispatch()
     const modalIsVisible = useSelector(state => state.orderModal.isVisible)
-    // const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
+    const {constructorState, constructorDispatcher} = useContext(ConstructorContext)
     const {buns,ingredients} =  useMemo(()=>{
         return {
             buns:constructorState.ingredients.filter(item=>item.type==="bun"),
@@ -46,13 +55,15 @@ export const BurgerConstructor = ()=>{
                                                    text={buns[0]?.name + " (верх)"} isLocked={true}
                                                    thumbnail={buns[0]?.image} price={buns[0]?.price}
                                                    type={"top"}/>}
-            <ul className={clsx(classes.container,
-                "pt-4 pr-2 custom-scroll",
+            <ul ref={dropTarget}  className={clsx(classes.container,
+                                                    "pt-4 pr-2 custom-scroll",
                 {[classes.no_ingredients]:!buns.length && !ingredients.length,
-                    [classes.no_scroll]:ingredients.length<=4})}>
+                    [classes.no_scroll]:ingredients.length<=4,
+                    [classes.drag_over]:isHover
+                })}>
 
                 { !buns.length && !ingredients.length && <p className={clsx(classes.no_ingredients,"text text_color_inactive")}>
-                    Кликните на игнредиент, чтобы собрать свой сочнейший бургер</p>}
+                     Перетащите игнредиенты, чтобы собрать свой сочнейший бургер</p>}
 
                 {ingredients.map(ing=>{
                    return(

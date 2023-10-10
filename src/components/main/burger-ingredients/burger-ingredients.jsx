@@ -4,17 +4,16 @@ import CategorizedComponents from "./categorized-component/categorized-component
 import PropTypes from "prop-types";
 import ingredientPropType from "../../../utils/prop-types"
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import {memo, useCallback, useContext, useMemo, useState} from "react";
+import {memo, useCallback, useContext, useMemo} from "react";
 import Modal from "../../modals/modal/modal";
 import {IngredientsContext} from "../../../services/appContext";
-import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
-
-
-
+import {setIsVisible} from "../../../services/ingredient-modal/ingredientModalSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 const BurgerIngredients = () => {
 
-
+    const dispatcher = useDispatch()
+    const isVisible = useSelector(state=>state.ingredientModal.isVisible)
     const {ingredients} = useContext(IngredientsContext)
     const {buns,sauces, mains} = useMemo(()=>{
         return {
@@ -24,8 +23,7 @@ const BurgerIngredients = () => {
         }
     },[ingredients])
 
-    const [ingredientData, setIngredientData] = useState(null)
-    const closeModal = useCallback(()=>setIngredientData(null), [])
+    const closeModal = useCallback(()=>dispatcher(setIsVisible(false)),[dispatcher])
     return (
         <>
             <ul className={clsx(classes.components,'custom-scroll')}>
@@ -33,8 +31,8 @@ const BurgerIngredients = () => {
                 <CategorizedComponents categoryName={"Coусы"} ingredients={sauces}/>
                 <CategorizedComponents categoryName={"Начинки"} ingredients={mains}/>
             </ul>
-            {ingredientData &&<Modal closeModal={closeModal} >
-                <IngredientDetails ingredientData={ingredientData}/>
+            {isVisible &&<Modal closeModal={closeModal} >
+                <IngredientDetails />
                             </Modal>}
         </>
     )

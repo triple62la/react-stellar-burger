@@ -25,6 +25,9 @@
 .no_scroll{
     overflow-y: hidden;
 }
+.drag_over{
+    box-shadow:  0 0 20px 0 rgba(138, 43, 226, 0.43) ;
+}
 .list_item{
     display: flex;
     align-items: center;

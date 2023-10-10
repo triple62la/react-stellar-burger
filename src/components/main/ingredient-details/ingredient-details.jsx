@@ -2,9 +2,10 @@ import React from 'react';
 import classes from "./ingredient-details.module.css";
 import clsx from "clsx";
 import ingredientPropType from "../../../utils/prop-types";
+import {useSelector} from "react-redux";
 
-const IngredientDetails = ({ingredientData}) => {
-
+const IngredientDetails = () => {
+    const ingredientData = useSelector(state => state.ingredientModal.ingredientData)
     return (
         <div className={classes.content}>
             <h2 className={clsx(classes.title, "text text_type_main-large mt-4 mb-3")}>Детали ингредиента</h2>

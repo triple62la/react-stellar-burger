@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from "./order-details.module.css"
-import PropTypes from "prop-types";
 import orderSuccessImage from "../../../assets/images/submitted-order.svg"
 import clsx from "clsx";
 import {useSelector} from "react-redux";
