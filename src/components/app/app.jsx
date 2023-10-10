@@ -11,7 +11,6 @@ import {IngredientsContext, ConstructorContext} from "../../services/appContext"
 const constructorInitState = {ingredients:[], cost:0}
 
 function App() {
-    console.log("app rerendered")
     const [fetchStatus, setFetchStatus] = useState("loading")
     const [preloaderIsVisible, setPreloaderVisible] = useState(false)
     const [ingredients, setIngredients] = useState([])

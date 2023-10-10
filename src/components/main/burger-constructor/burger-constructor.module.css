@@ -6,6 +6,7 @@
     flex-direction: column;
 }
 
+
 .container{
     display: flex;
     flex-direction: column;
@@ -13,7 +14,14 @@
     overflow-y: scroll;
     max-height: 550px;
     row-gap:16px;
+    transition: all ease 0.3s;
+    scroll-behavior: smooth;
 }
+/*@media screen  and (min-width: 1280px){*/
+/*    .container{*/
+/*        min-width: 600px;*/
+/*    }*/
+/*}*/
 .no_ingredients{
     display: flex;
     align-items: center;
@@ -26,6 +34,7 @@
     overflow-y: hidden;
 }
 .drag_over{
+    transition: box-shadow 0.2s linear;
     box-shadow:  0 0 20px 0 rgba(138, 43, 226, 0.43) ;
 }
 .list_item{
