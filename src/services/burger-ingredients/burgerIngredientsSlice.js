@@ -1,5 +1,4 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
 import {getIngredients} from "../../utils/api";
 
 const initialState = {
@@ -35,7 +34,11 @@ export const burgerConstructorSlice = createSlice({
             state.activeTab = visibleCategories[0].name
         },
 
-        setActiveTab:(state, {payload})=>void (state.activeTab=payload)
+        setActiveTab:(state, {payload})=>void (state.activeTab=payload),
+        incrementCounter:(state, {payload})=>{
+            const ingredient = state.ingredients.find(item=>item._id === payload)
+            ingredient.counter = !ingredient.counter? 1: ingredient.counter + 1
+        },
     },
     extraReducers: (builder)=>{
         builder.addCase(fetchIngredients.fulfilled,(state, action) => {
@@ -50,6 +53,10 @@ export const burgerConstructorSlice = createSlice({
     }
 
 })
-export const {setCategoryVisibility, setActiveTab} = burgerConstructorSlice.actions
+export const {
+    setCategoryVisibility,
+    setActiveTab,
+    incrementCounter
+} = burgerConstructorSlice.actions
 
 export default burgerConstructorSlice.reducer

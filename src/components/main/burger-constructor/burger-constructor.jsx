@@ -11,6 +11,7 @@ import {setIsVisible, setOrderId} from "../../../services/order-modal/orderModal
 import {removeIngredient, addIngredient} from "../../../services/burger-constructor/burgerConstructorSlice";
 import {useDrop} from "react-dnd";
 import {useRef} from "react";
+import {incrementCounter} from "../../../services/burger-ingredients/burgerIngredientsSlice";
 
 
 
@@ -20,6 +21,7 @@ export const BurgerConstructor = ()=>{
     const ingredients =useSelector(store=>store.burgerConstructor.ingredients)
     const hanldeDrop = (item,)=> {
         dispatch(addIngredient(item))
+        dispatch(incrementCounter(item._id))
         if (ingredients.length>3) {
              ingredientsListElement.current.scrollTop = ingredientsListElement.current.scrollHeight
         }
