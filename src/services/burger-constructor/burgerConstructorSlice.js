@@ -8,7 +8,7 @@ const initialState = {
 }
 
 
-const addIngredientAction = (state, {payload:ingredient})=>{
+const addIngredientReducer = (state, {payload:ingredient})=>{
     const isBun = ingredient.type ==="bun"
     const price = isBun? ingredient.price*2 : ingredient.price
     if (isBun){
@@ -22,7 +22,7 @@ const addIngredientAction = (state, {payload:ingredient})=>{
     state.totalCost +=  price
 }
 
-const removeIngredientAction = (state, {payload:ingredient})=>{
+const removeIngredientReducer = (state, {payload:ingredient})=>{
     state.totalCost-=ingredient.price
     state.ingredients = state.ingredients.filter(ing=>ing.constructorId!==ingredient.constructorId)
 }
@@ -32,8 +32,8 @@ export const burgerConstructorSlice = createSlice({
     name:"burgerConstructor",
     initialState,
     reducers:{
-        addIngredient:addIngredientAction,
-        removeIngredient: removeIngredientAction
+        addIngredient:addIngredientReducer,
+        removeIngredient: removeIngredientReducer
     }
 })
 export const {addIngredient, removeIngredient} = burgerConstructorSlice.actions

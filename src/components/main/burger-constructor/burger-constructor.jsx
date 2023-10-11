@@ -3,7 +3,7 @@ import classes from "./burger-constructor.module.css"
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../../utils/prop-types";
-import OrderDetails from "../order-details/order-details";
+import OrderDetails from "../../modals/order-details/order-details";
 import Modal from "../../modals/modal/modal";
 import {getOrderNum} from "../../../utils/api";
 import {useDispatch, useSelector} from "react-redux";
@@ -40,7 +40,6 @@ export const BurgerConstructor = ()=>{
         dispatch(setIsVisible(false))
     }
     const openModal = ()=>{
-        console.log(!bun && !ingredients.length)
         const orderedItems = [...ingredients.map(item=>item._id), bun._id]
         getOrderNum(orderedItems)
             .then(number=>{
@@ -85,7 +84,7 @@ export const BurgerConstructor = ()=>{
                 <p className="text text_type_digits-medium pr-10">{totalCost}
                     <CurrencyIcon  type="primary"/>
                 </p>
-                <Button onClick={openModal}  htmlType="button" type="primary" size="large" disabled={!bun && !ingredients.length}>
+                <Button onClick={openModal}  htmlType="button" type="primary" size="large" disabled={!bun }>
                     Оформить заказ
                 </Button>
             </div>
