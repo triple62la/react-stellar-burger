@@ -19,10 +19,9 @@ export const BurgerConstructor = ()=>{
     const dispatch = useDispatch()
     const ingredients =useSelector(store=>store.burgerConstructor.ingredients)
     const hanldeDrop = (item,)=> {
-        dispatch(addIngredient({...item}))
+        dispatch(addIngredient(item))
         if (ingredients.length>3) {
              ingredientsListElement.current.scrollTop = ingredientsListElement.current.scrollHeight
-
         }
     }
     const [{isHover}, dropTarget] = useDrop({
@@ -61,6 +60,7 @@ export const BurgerConstructor = ()=>{
                                                     "pt-4 pr-2 custom-scroll",
                 {[classes.no_ingredients]:!bun && !ingredients.length,
                     [classes.no_scroll]:ingredients.length<=4,
+                    [classes.bottom_space]:bun && isHover
                 })}>
 
                 { !bun && !ingredients.length && <p className={clsx(classes.no_ingredients,"text text_color_inactive")}>

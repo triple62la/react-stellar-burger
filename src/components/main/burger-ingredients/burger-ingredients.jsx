@@ -33,9 +33,9 @@ const BurgerIngredients = () => {
                     categoryId={category.id}/>
                 )}
             </ul>
-            {isVisible &&<Modal closeModal={closeModal} >
+            {isVisible &&<Modal closeModal={closeModal}>
                 <IngredientDetails />
-                            </Modal>}
+            </Modal>}
         </>
     )
 }

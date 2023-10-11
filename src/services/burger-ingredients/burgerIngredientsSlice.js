@@ -1,4 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+import {getIngredients} from "../../utils/api";
 
 const initialState = {
     categories:[
@@ -10,6 +12,13 @@ const initialState = {
     ingredients:[],
     fetchStatus:null,
 }
+
+export const fetchIngredients = createAsyncThunk(
+    "infgrdients/fetch",
+    async ()=>{
+        return  await getIngredients()
+}
+)
 
 
 
@@ -27,9 +36,20 @@ export const burgerConstructorSlice = createSlice({
         },
 
         setActiveTab:(state, {payload})=>void (state.activeTab=payload)
-
-
+    },
+    extraReducers: (builder)=>{
+        builder.addCase(fetchIngredients.fulfilled,(state, action) => {
+            state.fetchStatus="success"
+            state.ingredients=action.payload})
+        builder.addCase(fetchIngredients.pending,(state, action) => {
+            state.fetchStatus="pending"
+            })
+        builder.addCase(fetchIngredients.rejected,(state, action) => {
+            state.fetchStatus="error"
+        })
     }
+
 })
 export const {setCategoryVisibility, setActiveTab} = burgerConstructorSlice.actions
+
 export default burgerConstructorSlice.reducer

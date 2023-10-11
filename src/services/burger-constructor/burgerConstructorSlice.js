@@ -20,6 +20,7 @@ const addIngredientReducer = (state, {payload:ingredient})=>{
         state.ingredients.push({...ingredient, constructorId})
     }
     state.totalCost +=  price
+
 }
 
 const removeIngredientReducer = (state, {payload:ingredient})=>{
