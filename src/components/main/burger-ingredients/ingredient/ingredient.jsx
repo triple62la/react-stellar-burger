@@ -23,7 +23,7 @@ const Ingredient = ({ingredient}) => {
 
     return (
         <li ref={dragRef} onClick={handleIngClick(ingredient)} key={ingredient._id} className={classes.ingredient}>
-            {ingredient.counter && <Counter count={ingredient.counter} size={"default"} extraClass={""}/>}
+            {!!ingredient.counter && <Counter count={ingredient.counter} size={"default"} extraClass={""}/>}
             <img className={classes.image} src={ingredient.image} alt={ingredient.name}/>
             <div className={clsx(classes.price, "pt-1 pb-1")}>
                 <p className={"text text_type_digits-default"}>{ingredient.price}</p>

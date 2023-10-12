@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import uuid from "../../utils/id-helper";
+import uuid from "../../utils/idHelper";
 
 const initialState = {
     bun:null,
@@ -17,7 +17,8 @@ const addIngredientReducer = (state, {payload:ingredient})=>{
         state.bun = ingredient
     } else {
         const constructorId = uuid()
-        state.ingredients.push({...ingredient, constructorId})
+        const index = state.ingredients.length
+        state.ingredients.push({...ingredient, constructorId,index})
     }
     state.totalCost +=  price
 
@@ -34,9 +35,15 @@ export const burgerConstructorSlice = createSlice({
     initialState,
     reducers:{
         addIngredient:addIngredientReducer,
-        removeIngredient: removeIngredientReducer
+        removeIngredient: removeIngredientReducer,
+        moveIngredient:(state, {payload})=>{
+
+            state.ingredients.splice(payload.hoverIndex,0, state.ingredients.splice(payload.dragIndex,1)[0])
+
+
+        }
     }
 })
-export const {addIngredient, removeIngredient} = burgerConstructorSlice.actions
+export const {addIngredient, removeIngredient, moveIngredient} = burgerConstructorSlice.actions
 export default burgerConstructorSlice.reducer
 

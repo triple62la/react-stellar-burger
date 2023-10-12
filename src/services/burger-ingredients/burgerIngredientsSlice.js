@@ -39,6 +39,10 @@ export const burgerConstructorSlice = createSlice({
             const ingredient = state.ingredients.find(item=>item._id === payload)
             ingredient.counter = !ingredient.counter? 1: ingredient.counter + 1
         },
+        decrementCounter:(state, {payload})=>{
+            const ingredient = state.ingredients.find(item=>item._id === payload)
+            ingredient.counter = ingredient.counter-1<=0? 0: ingredient.counter - 1
+        },
     },
     extraReducers: (builder)=>{
         builder.addCase(fetchIngredients.fulfilled,(state, action) => {
@@ -56,7 +60,8 @@ export const burgerConstructorSlice = createSlice({
 export const {
     setCategoryVisibility,
     setActiveTab,
-    incrementCounter
+    incrementCounter,
+    decrementCounter
 } = burgerConstructorSlice.actions
 
 export default burgerConstructorSlice.reducer
