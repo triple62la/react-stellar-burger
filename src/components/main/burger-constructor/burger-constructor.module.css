@@ -6,6 +6,7 @@
     flex-direction: column;
 }
 
+
 .container{
     display: flex;
     flex-direction: column;
@@ -13,7 +14,10 @@
     overflow-y: scroll;
     max-height: 550px;
     row-gap:16px;
+    transition: all ease 0.3s;
+    scroll-behavior: smooth;
 }
+
 .no_ingredients{
     display: flex;
     align-items: center;
@@ -25,10 +29,18 @@
 .no_scroll{
     overflow-y: hidden;
 }
+.drag_over{
+    transition: box-shadow 0.2s linear;
+    box-shadow:  0 0 20px 0 rgba(138, 43, 226, 0.43);
+}
+.bottom_space{
+    padding-bottom: 50px;
+}
 .list_item{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: move;
 
 }
 .bun{
