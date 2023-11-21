@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
+import {RouterProvider} from  "react-router-dom";
+import {router} from "./router/router";
 import configureAppStore from "./services/store"
 import {Provider} from "react-redux";
+import Preloader from "./components/modals/preloader/preloader";
 
 
 const store = configureAppStore({})
@@ -12,7 +14,7 @@ const store = configureAppStore({})
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
-        <App />
+      <RouterProvider router={router} fallbackElement={<Preloader/>}/>
       </Provider>
   </React.StrictMode>,
   document.getElementById("root")
