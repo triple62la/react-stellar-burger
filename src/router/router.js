@@ -3,6 +3,7 @@ import IngredientInfoPage from "../pages/ingredient-info/ingredient-info";
 import NotFoundPage from "../pages/not-found/not-found-page";
 import AppLayout from "../components/app-layout/app-layout";
 import MainPage from "../pages/main-page/main-page";
+import LoginPage from "../pages/login/login-page";
 
 export const router = createBrowserRouter([{
     path:"/",
@@ -11,18 +12,15 @@ export const router = createBrowserRouter([{
         {
            index:true,
             element:<MainPage/>
-
         },
         {
             path: "ingredients/:ingId",
             element: <IngredientInfoPage/>,
-            // loader: async ({request, params }) => {
-            //     const ingredients = await getIngredients()
-            //     return ingredients.find(ing=> ing._id = params.ingId)
-            // },
-
         },
-
+        {
+            path:"/login",
+            element:<LoginPage/>
+        },
     ]
     },
     {
