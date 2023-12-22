@@ -3,4 +3,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: calc(100vh - 50px);
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 24px;
+}
+.validation-msg{
+    height: 80px;
+}
+.panel-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 16px;
+}
+.link{
+    color: #4C4CFF;
+    margin-left: 8px;
 }
