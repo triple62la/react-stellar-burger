@@ -5,7 +5,7 @@ import styles from "./ingredient-info.module.css";
 export default function IngredientInfoPage() {
 
         const {ingId} = useParams()
-        const {name,calories, carbohydrates, fat, proteins,  image_large,price} = useSelector(state => selectIngById(state, ingId))
+        const {name,calories, carbohydrates, fat, proteins,  image_large} = useSelector(state => selectIngById(state, ingId))
 
     return  (
         <main  className={styles.main}>
