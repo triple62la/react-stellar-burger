@@ -5,6 +5,9 @@ import AppLayout from "../components/app-layout/app-layout";
 import MainPage from "../pages/main-page/main-page";
 import LoginPage from "../pages/login/login-page";
 import RegisterPage from "../pages/register/register-page";
+import ForgotPasswordPage from "../pages/forgot-password/forgot-password-page";
+import ResetPasswordPage from "../pages/reset-password/reset-password";
+import ProfilePage from "../pages/profile/profile-page";
 
 export const router = createBrowserRouter([{
     path:"/",
@@ -28,8 +31,17 @@ export const router = createBrowserRouter([{
         },
         {
             path:"/forgot-password",
-
+            element:<ForgotPasswordPage/>
+        },
+        {
+            path: "/reset-password",
+            element:<ResetPasswordPage/>
+        },
+        {
+            path: "profile",
+            element: <ProfilePage/>
         }
+
     ]
     },
     {

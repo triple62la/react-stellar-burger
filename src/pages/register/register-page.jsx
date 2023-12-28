@@ -1,4 +1,4 @@
-import styles from "./register-page.module.css"
+import styles from "../login/login-page.module.css"
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import {Link} from "react-router-dom";
@@ -24,7 +24,7 @@ export default function RegisterPage () {
                 <PasswordInput value={pasw}  placeholder="Пароль" onChange={handlePasswChange} />
                 <Button htmlType={"submit"} size={"medium"} type={"primary"}>Зарегистрироваться</Button>
             </form>
-            <div className={styles["panel-footer"]}>
+            <div className={styles["panel-footer"]} style={{marginTop:"80px"}}>
                 <p className={"text text_type_main-default text_color_inactive"}>Уже зарегистрированы?
                     <Link to="/login" className={styles.link}>Войти</Link>
                 </p>
