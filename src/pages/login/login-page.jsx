@@ -1,20 +1,30 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import styles from "./login-page.module.css"
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {handleInputChange, setAuthData} from "../../utils/helpers";
+import {authUser} from "../../utils/api";
 
 export default function LoginPage() {
 
-    const [email, setEmail] = useState("")
-    const handleEmailChange = e => {
-        setEmail(e.target.value)
-    }
-    const [pasw, setPassw] = useState("")
-    const handlePasswChange = e => {
-        setPassw(e.target.value)
-    }
+    const [formData, setFormData] = useState({
+        email:"",
+        password:""
+    })
+    const location = useLocation()
+    const navigate = useNavigate()
+    const onInput = (e)=>handleInputChange(e, formData, setFormData)
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (e)=>{
+        e.preventDefault()
+        authUser(formData)
+            .then(response=>{
+                if (response.success){
+                    setAuthData(response)
+                    navigate(location.state?.from || "/")
+                }
+            })
+    }
     return (
         <main className={styles.main}>
             <form className={styles.form} onSubmit={onSubmit}>
@@ -24,8 +34,8 @@ export default function LoginPage() {
                 {/*    control={control}*/}
                 {/*    render={({ field }) => <EmailInput {...field} placeholder="E-mail" type={"email"} />}*/}
                 {/*/>*/}
-                <EmailInput value={email} placeholder="E-mail" type={"email"} onChange={handleEmailChange} />
-                <PasswordInput value={pasw}  placeholder="Пароль" onChange={handlePasswChange} />
+                <EmailInput value={formData.email} placeholder="E-mail" type={"email"} name={"email"} onChange={onInput} />
+                <PasswordInput value={formData.password}  placeholder="Пароль" name={"password"} onChange={onInput} />
                 <Button htmlType={"submit"} size={"medium"} type={"primary"}>Войти</Button>
             </form>
             <span className={styles["validation-msg"]}></span>

@@ -1,19 +1,19 @@
 
+
 const apiUrl = "https://norma.nomoreparties.space/api"
 
 
-const request = async (method, route, payload)=>{
+const request = async (method, route, payload=null)=>{
     const init = {
         method: method,
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            ...payload
-        })
     }
-    if (method.toLowerCase()==="get") delete init.body
-    const response = await fetch(apiUrl + route, init)
+    if (payload!=null) init.body = JSON.stringify({...payload})
+    const response = await fetch(apiUrl+route, init)
     if ( !response.ok) {
-        throw new Error(`Bad server response code (${response.statusCode})`)
+        const err = new Error(`Bad server response code (${response.status})`)
+        err.response =  await response.json()
+        throw err
     }
     const fetchedResult = await response.json()
     if (!fetchedResult.success){
@@ -32,6 +32,36 @@ export const getOrderNum = async (ingredientsId) => {
     return response.order.number
 }
 
+export const registerUser = async (userData)=> {
+    try {
+        return await request("POST", "/auth/register", userData)
+    } catch (err) {
+        return {...err.response, success: false, message: err.message + err.response.message || ""}
+    }
+}
 
+export const authUser = async (authData)=>{
+    try{
+        return request("POST", "/auth/login", authData)
 
-
+    } catch (err){
+        return {...err.response, success: false, message: err.message + err.response.message || ""}
+    }
+}
+export const logoutUser = async (token) =>{
+    try{
+        return await request("POST", "/auth/logout" ,{token})
+    }  catch (err) {
+        return {...err.response, success: false, message: err.message + err.response.message || ""}
+    }
+}
+export const renewToken = async () =>{
+    return request("POST", "/auth/token")
+}
+export const forgotPassword = async (email) => {
+    try{
+        return await request("POST", "/password-reset" ,{email})
+    }  catch (err) {
+        return {...err.response, success: false, message: err.message + err.response.message || ""}
+    }
+}

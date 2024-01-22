@@ -1,27 +1,43 @@
 import styles from "../login/login-page.module.css"
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {registerUser} from "../../utils/api";
+import {handleInputChange} from "../../utils/helpers";
+import {setAuthData} from "../../utils/helpers";
 
 
 export default function RegisterPage () {
 
-    const [userName, setUserName] = useState("")
-    const handleUserNameInput = (e)=>setUserName(e.target.value)
-    const [email, setEmail] = useState("")
-    const handleEmailChange = (e)=>setEmail(e.target.value)
-    const [pasw, setPassw] = useState("")
-    const handlePasswChange = e => {
-        setPassw(e.target.value)
-    }
+    // const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    })
+    const [errMsg, setErrMsg] = useState("")
+    const onInputChange = (event)=>handleInputChange(event, formData, setFormData)
 
+    const handleSubmit = e =>{
+        e.preventDefault()
+        registerUser(formData)
+            .then((response)=>{
+                console.log(response)
+                if (response.success){
+                    setAuthData(response)
+                    navigate("/")
+                }
+            })
+
+    }
     return (
         <main className={styles.main}>
-            <form className={styles.form} onSubmit={e=>e.preventDefault()}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <h1 className="text text_type_main-medium" >Регистрация</h1>
-                <Input value={userName} onChange={handleUserNameInput} type={"text"} id={"userName"} placeholder={"Имя"} name={"userName"}/>
-                <EmailInput value={email} placeholder="E-mail" type={"email"} onChange={handleEmailChange}/>
-                <PasswordInput value={pasw}  placeholder="Пароль" onChange={handlePasswChange} />
+                <Input value={formData.name} onChange={onInputChange} type={"text"} id={"userName"} placeholder={"Имя"} name={"name"}/>
+                <EmailInput value={formData.email} placeholder="E-mail" type={"email"} onChange={onInputChange} name={"email"}/>
+                <PasswordInput value={formData.password}  placeholder="Пароль" onChange={onInputChange} name={"password"}/>
                 <Button htmlType={"submit"} size={"medium"} type={"primary"}>Зарегистрироваться</Button>
             </form>
             <div className={styles["panel-footer"]} style={{marginTop:"80px"}}>

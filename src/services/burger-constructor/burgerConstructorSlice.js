@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import uuid from "../../utils/idHelper";
+import {uuid} from "../../utils/helpers";
 
 const initialState = {
     bun:null,
