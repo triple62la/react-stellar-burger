@@ -1,19 +1,22 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {getAuthData} from "../../utils/helpers";
 import {Navigate, useLocation} from "react-router-dom";
 
-export default function ProtectedRouteElement({element}){
+function ProtectedRouteElement({element, onlyUnAuth=false}){
 
-    const [isAuthorized, setAuthorized] = useState(()=>{
+    const [isAuthorized] = useState(()=>{
         const {accessToken,refreshToken} = getAuthData()
         return !!(accessToken && refreshToken)
     })
     const location = useLocation()
-    useEffect(()=>{
-        const {accessToken,refreshToken} = getAuthData()
-        setAuthorized(!!(accessToken && refreshToken))
-    }, [])
 
+    if (onlyUnAuth && isAuthorized) return <Navigate to={"/"} state={{from:location.pathname}}  replace/>;
 
-    return isAuthorized? element: <Navigate to="/login" state={{from:location.pathname}} replace/>;
+    if (!onlyUnAuth && !isAuthorized) return  <Navigate to="/login" state={{from:location.pathname}} replace/>;
+
+    return element
 }
+export const OnlyAuth = ProtectedRouteElement;
+export const OnlyUnAuth = ({ element }) => (
+     <ProtectedRouteElement onlyUnAuth={true} element={element} />
+);

@@ -5,11 +5,12 @@ import {Link, useNavigate} from "react-router-dom";
 import {registerUser} from "../../utils/api";
 import {handleInputChange} from "../../utils/helpers";
 import {setAuthData} from "../../utils/helpers";
+import useNotification from "../../hooks/use-notification";
 
 
 export default function RegisterPage () {
 
-    // const dispatch = useDispatch()
+    const [showNotification, closeNotification] = useNotification()
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: "",
@@ -23,10 +24,11 @@ export default function RegisterPage () {
         e.preventDefault()
         registerUser(formData)
             .then((response)=>{
-                console.log(response)
                 if (response.success){
                     setAuthData(response)
                     navigate("/")
+                } else {
+                    showNotification("Ой,произошла ошибка", response.response?.message || response.message)
                 }
             })
 

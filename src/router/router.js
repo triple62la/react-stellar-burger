@@ -8,15 +8,15 @@ import RegisterPage from "../pages/register/register-page";
 import ForgotPasswordPage from "../pages/forgot-password/forgot-password-page";
 import ResetPasswordPage from "../pages/reset-password/reset-password";
 import ProfilePage from "../pages/profile/profile-page";
-import ProtectedRouteElement from "../components/protected-route-element/protected-route-element";
+import {OnlyAuth, OnlyUnAuth} from "../components/protected-route-element/protected-route-element";
 
 export const router = createBrowserRouter([{
     path:"/",
     element:<AppLayout/>,
     children:[
             {
-               index:true,
-                element:<ProtectedRouteElement element={<MainPage/>}/>
+                index:true,
+                element:<OnlyAuth element={<MainPage/>}/>
             },
             {
                 path: "ingredients/:ingId",
@@ -24,23 +24,24 @@ export const router = createBrowserRouter([{
             },
             {
                 path:"/login",
-                element:<LoginPage/>
+                element:<OnlyUnAuth element={<LoginPage/>} />
+
             },
             {
                 path:"/register",
-                element:<RegisterPage/>
+                element:<OnlyUnAuth element={<RegisterPage/>} />
             },
             {
                 path:"/forgot-password",
-                element:<ForgotPasswordPage/>
+                element: <OnlyUnAuth element={<ForgotPasswordPage/>}/>
             },
             {
                 path: "/reset-password",
-                element:<ResetPasswordPage/>
+                element: <OnlyUnAuth element={<ResetPasswordPage/>}/>
             },
             {
                 path: "profile",
-                element: <ProtectedRouteElement element={<ProfilePage/>}/>
+                element: <OnlyAuth element={<ProfilePage/>}/>
             }
         ]
     },

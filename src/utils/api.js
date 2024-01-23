@@ -36,7 +36,7 @@ export const registerUser = async (userData)=> {
     try {
         return await request("POST", "/auth/register", userData)
     } catch (err) {
-        return {...err.response, success: false, message: err.message + err.response.message || ""}
+        return {response:err.response, success: false, message: err.message}
     }
 }
 
@@ -45,14 +45,14 @@ export const authUser = async (authData)=>{
         return request("POST", "/auth/login", authData)
 
     } catch (err){
-        return {...err.response, success: false, message: err.message + err.response.message || ""}
+        return {response:err.response, success: false, message: err.message }
     }
 }
 export const logoutUser = async (token) =>{
     try{
         return await request("POST", "/auth/logout" ,{token})
     }  catch (err) {
-        return {...err.response, success: false, message: err.message + err.response.message || ""}
+        return {response:err.response, success: false, message: err.message }
     }
 }
 export const renewToken = async () =>{
@@ -62,6 +62,6 @@ export const forgotPassword = async (email) => {
     try{
         return await request("POST", "/password-reset" ,{email})
     }  catch (err) {
-        return {...err.response, success: false, message: err.message + err.response.message || ""}
+        return {response:err.response, success: false, message: err.message }
     }
 }
