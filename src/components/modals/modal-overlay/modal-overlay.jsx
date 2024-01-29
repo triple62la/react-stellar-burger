@@ -1,7 +1,8 @@
 import classes from "./modal-overlay.module.css";
 import PropTypes from "prop-types";
 
-const ModalOverlay = ({children, closeModal})=> {
+const ModalOverlay = ({closeModal,children})=> {
+
     return (
         <div className={classes.overlay} onClick={closeModal}>{children}</div>
     )

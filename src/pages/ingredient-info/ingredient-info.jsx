@@ -1,12 +1,14 @@
 import { useSelector} from "react-redux";
 import {selectIngById} from "../../services/burger-ingredients/selector";
-import { useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import styles from "./ingredient-info.module.css";
+
+
+
 export default function IngredientInfoPage() {
 
         const {ingId} = useParams()
         const {name,calories, carbohydrates, fat, proteins,  image_large} = useSelector(state => selectIngById(state, ingId))
-
     return  (
         <main  className={styles.main}>
             <h1 className="text text_type_main-large">Детали ингредиента</h1>

@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, useLocation} from "react-router-dom";
 import IngredientInfoPage from "../pages/ingredient-info/ingredient-info";
 import NotFoundPage from "../pages/not-found/not-found-page";
 import AppLayout from "../components/app-layout/app-layout";
@@ -9,6 +9,13 @@ import ForgotPasswordPage from "../pages/forgot-password/forgot-password-page";
 import ResetPasswordPage from "../pages/reset-password/reset-password";
 import ProfilePage from "../pages/profile/profile-page";
 import {OnlyAuth, OnlyUnAuth} from "../components/protected-route-element/protected-route-element";
+import Modal from "../components/modals/modal/modal";
+import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
+import {setIsVisible} from "../services/ingredient-modal/ingredientModalSlice";
+
+
+
+
 
 export const router = createBrowserRouter([{
     path:"/",
@@ -16,11 +23,22 @@ export const router = createBrowserRouter([{
     children:[
             {
                 index:true,
-                element:<OnlyAuth element={<MainPage/>}/>
+                element:<OnlyAuth element={<MainPage/>}/>,
+
+            },
+            {
+                path: "ingredients",
+                element: <OnlyAuth element={<MainPage/>}/>,
+                children:[
+                    {
+                        path:":ingId",
+                        element:<Modal closeModal={dispatch(setIsVisible(false))} ><IngredientDetails/></Modal>
+                    }
+                ]
             },
             {
                 path: "ingredients/:ingId",
-                element: <IngredientInfoPage/>,
+                element:  <IngredientInfoPage/>,
             },
             {
                 path:"/login",
@@ -42,7 +60,8 @@ export const router = createBrowserRouter([{
             {
                 path: "profile",
                 element: <OnlyAuth element={<ProfilePage/>}/>
-            }
+            },
+
         ]
     },
     {

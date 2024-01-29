@@ -5,13 +5,15 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import {createPortal} from "react-dom";
 
+
 const Modal = ({closeModal, children, btnExtraClass}) => {
+
 
     const handleEscPress = useCallback((e) =>{
         if (e.key==="Escape"){
             closeModal()
         }
-    }, [closeModal])
+    }, [])
 
     const handleModalClick = useCallback((e)=> e.stopPropagation(), [])
 

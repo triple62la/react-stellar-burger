@@ -31,7 +31,7 @@ export const burgerConstructorSlice = createSlice({
             const category = state.categories.find(category => category.name === payload.name)
             category.isVisible = payload.isVisible
             const visibleCategories = state.categories.filter(category=>category.isVisible)
-            state.activeTab = visibleCategories[0].name
+            state.activeTab = visibleCategories[0]?.name
         },
 
         setActiveTab:(state, {payload})=>void (state.activeTab=payload),

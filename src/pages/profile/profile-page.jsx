@@ -1,38 +1,54 @@
 import styles from "./profile-page.module.css"
-import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {useState} from "react";
-import {clearAuthData, getAuthData} from "../../utils/helpers";
-import {logoutUser} from "../../utils/api";
+import {useEffect, useState} from "react";
+import {clearAuthData, getAuthData, handleInputChange} from "../../utils/helpers";
+import {fetchUserData, logoutUser} from "../../utils/api";
+import useNotification from "../../hooks/use-notification";
 
 
 export default function ProfilePage (){
 
     const location = useLocation()
     const navigate = useNavigate()
+    const [btnIsVisible, setBtnVisible] = useState(false)
+    const [fetchedWithErrors, setFetchedWithErrors] = useState(false)
     const getClassName = (to)=>{
         if (location.pathname === to){
             return "text text_type_main-medium"
         }
         return "text text_type_main-medium text_color_inactive"
     }
-    const currentUser = getAuthData()
-    const [username, setUsername] = useState(currentUser.name);
-    const [email, setEmail] = useState(currentUser.email);
-    const [pwd, setPwd] = useState('');
 
+    const [showNotification, ] = useNotification()
+    const [formData, setFormData] = useState({
+        name:"",
+        email:"",
+        password:"0000"
 
-    const handleUsernameChange = (e) => {
-        setUsername(e.target.value);
-        localStorage.setItem("name", e.target.value)
-    };
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        localStorage.setItem("email", e.target.value)
-    };
-    const handlePwdChange = (e) => {
-        setPwd(e.target.value);
-    };
+    })
+    const onInputChange = (e) => {
+        if (!fetchedWithErrors && !btnIsVisible){
+            setBtnVisible(true)
+        }
+         return handleInputChange(e, formData, setFormData)
+    }
+
+    useEffect(()=>{
+        fetchUserData().then(response=>{
+            if (!response.success){
+                setFetchedWithErrors(true)
+                showNotification("OopsyWhoopsy", response.message + ": " + response.response.message)
+                setFormData({name:"", email:"", password:"0000"})
+            } else{
+                setFormData({...formData, name: response.user.name, email: response.user.email})
+            }
+        })
+    }, [])
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+
+    }
     const handleLogoutClick = (e) =>{
         e.preventDefault()
         logoutUser(localStorage.getItem("refreshToken"))
@@ -42,7 +58,6 @@ export default function ProfilePage (){
                     navigate("/login")
                 }
             })
-
     }
     return (
         <main className={styles.main}>
@@ -61,31 +76,44 @@ export default function ProfilePage (){
             </div>
 
             <form className={styles.form}>
-                <Input value={username}
-                       onChange={handleUsernameChange}
+                <Input value={formData.name}
+                       onChange={onInputChange}
                        type="text"
                        id="username"
-                       name='username'
+                       name='name'
                        placeholder="Имя"
                        icon="EditIcon"/>
-                <EmailInput value={email}
-                            onChange={handleEmailChange}
+                <EmailInput value={formData.email}
+                            onChange={onInputChange}
                             type="email"
                             id="email"
                             name="email"
                             placeholder="E-mail"
                             icon="EditIcon"
                 />
-                <PasswordInput value={pwd}
-                               onChange={handlePwdChange}
+                <PasswordInput value={formData.password}
+                               onChange={onInputChange}
                                type='password'
                                id="password"
                                name='password'
                                placeholder="Пароль"
                                icon="EditIcon"
                 />
+                {btnIsVisible && <div className={styles["btns-panel"]}>
+                    <Button htmlType="button" type="secondary" size="large" >
+                        Отмена
+                    </Button>
+                    <Button
+                        htmlType="submit"
+                        type="primary"
+                        size="medium"
+                        onClick={handleSubmit}
+                        extraClass={styles.submit}
+                    >
+                        Сохранить
+                    </Button>
+                </div>}
             </form>
-
         </main>
     )
 }
