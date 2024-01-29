@@ -4,6 +4,7 @@ import styles from "./login-page.module.css"
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {handleInputChange, setAuthData} from "../../utils/helpers";
 import {authUser} from "../../utils/api";
+import useNotification from "../../hooks/use-notification";
 
 export default function LoginPage() {
 
@@ -14,7 +15,7 @@ export default function LoginPage() {
     const location = useLocation()
     const navigate = useNavigate()
     const onInput = (e)=>handleInputChange(e, formData, setFormData)
-
+    const [showNotification]=useNotification()
     const onSubmit = (e)=>{
         e.preventDefault()
         authUser(formData)
@@ -22,6 +23,10 @@ export default function LoginPage() {
                 if (response.success){
                     setAuthData(response)
                     navigate(location.state?.from || "/")
+                    localStorage.setItem("password", formData.password)
+                }
+                else {
+                    showNotification("", response.response.message)
                 }
             })
     }

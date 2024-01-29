@@ -10,14 +10,13 @@ import useNotification from "../../hooks/use-notification";
 
 export default function RegisterPage () {
 
-    const [showNotification, closeNotification] = useNotification()
+    const [showNotification,] = useNotification()
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
     })
-    const [errMsg, setErrMsg] = useState("")
     const onInputChange = (event)=>handleInputChange(event, formData, setFormData)
 
     const handleSubmit = e =>{
@@ -27,6 +26,7 @@ export default function RegisterPage () {
                 if (response.success){
                     setAuthData(response)
                     navigate("/")
+                    localStorage.setItem("password", formData.password)
                 } else {
                     showNotification("Ой,произошла ошибка", response.response?.message || response.message)
                 }

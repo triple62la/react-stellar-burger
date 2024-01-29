@@ -80,7 +80,7 @@ export const registerUser = async (userData)=> {
 
 export const authUser = async (authData)=>{
     try{
-        return request("POST", "/auth/login", authData)
+        return await request("POST", "/auth/login", authData)
 
     } catch (err){
         return {response:err.response, success: false, message: "Ошибка при авторизации пользователя" }
@@ -106,5 +106,12 @@ export const fetchUserData = async ()=>{
         return await request("GET", "/auth/user", null, true)
     } catch (err){
         return {response:err.response, success: false, message: "Ошибка при получении данных пользователя"}
+    }
+}
+export const patchUserData = async (data)=>{
+    try{
+        return await request("PATCH", "/auth/user", {...data}, true)
+    } catch (err){
+        return  {response:err.response, success: false, message: "Ошибка при изменении данных пользователя"}
     }
 }

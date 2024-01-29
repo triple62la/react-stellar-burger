@@ -9,7 +9,7 @@ import {selectIngById} from "../../../services/burger-ingredients/selector";
 const IngredientDetails = () => {
 
     const {ingId} = useParams()
-    const {name,calories, carbohydrates, fat, proteins,image, image_large} = useSelector(state => selectIngById(state, ingId))
+    const {name,calories, carbohydrates, fat, proteins,image} = useSelector(state => selectIngById(state, ingId))
     return (
         <div className={classes.content}>
             <h2 className={clsx(classes.title, "text text_type_main-large mt-4 mb-3")}>Детали ингредиента</h2>

@@ -2,8 +2,8 @@ import styles from "./profile-page.module.css"
 import {EmailInput, Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {clearAuthData, getAuthData, handleInputChange} from "../../utils/helpers";
-import {fetchUserData, logoutUser} from "../../utils/api";
+import {clearAuthData, handleInputChange} from "../../utils/helpers";
+import {fetchUserData, logoutUser, patchUserData} from "../../utils/api";
 import useNotification from "../../hooks/use-notification";
 
 
@@ -19,14 +19,14 @@ export default function ProfilePage (){
         }
         return "text text_type_main-medium text_color_inactive"
     }
-
     const [showNotification, ] = useNotification()
     const [formData, setFormData] = useState({
         name:"",
         email:"",
-        password:"0000"
+        password:localStorage.getItem("password")
 
     })
+
     const onInputChange = (e) => {
         if (!fetchedWithErrors && !btnIsVisible){
             setBtnVisible(true)
@@ -39,7 +39,7 @@ export default function ProfilePage (){
             if (!response.success){
                 setFetchedWithErrors(true)
                 showNotification("OopsyWhoopsy", response.message + ": " + response.response.message)
-                setFormData({name:"", email:"", password:"0000"})
+                setFormData({name:"", email:"", password:""})
             } else{
                 setFormData({...formData, name: response.user.name, email: response.user.email})
             }
@@ -47,7 +47,12 @@ export default function ProfilePage (){
     }, [])
     const handleSubmit = (e)=>{
         e.preventDefault()
-
+        patchUserData(formData)
+            .then(()=>showNotification("Успех", "Ваши данные успешно изменены"))
+            .catch(err=>{
+                showNotification("Произошла ошибка", err)
+            })
+            .finally(()=>setBtnVisible(false))
     }
     const handleLogoutClick = (e) =>{
         e.preventDefault()

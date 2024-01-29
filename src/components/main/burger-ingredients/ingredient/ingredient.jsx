@@ -4,7 +4,7 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {ingredientPropType} from "../../../../utils/prop-types";
 import clsx from "clsx";
 import {useDrag} from "react-dnd";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const Ingredient = ({ingredient}) => {
     const [, dragRef] = useDrag({

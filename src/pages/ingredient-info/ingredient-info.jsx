@@ -1,6 +1,6 @@
 import { useSelector} from "react-redux";
 import {selectIngById} from "../../services/burger-ingredients/selector";
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import styles from "./ingredient-info.module.css";
 
 
