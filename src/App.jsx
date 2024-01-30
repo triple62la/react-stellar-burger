@@ -16,24 +16,24 @@ import {useDispatch} from "react-redux";
 
 export default function App(){
     const dispatch = useDispatch()
+
     useEffect( ()=>{
         dispatch(fetchIngredients())
-        console.log("fetch пошел!")
     },[dispatch])
+
     const location = useLocation();
     const background=location.state?.backgroundLocation
     const navigate = useNavigate()
-    const getIngredients =useCallback(()=> dispatch(fetchIngredients()),[dispatch])
+
     const closeImgModal = useCallback(()=>{
         navigate(-1)
     },[navigate])
 
-    console.log("app агружается")
     return(<>
         <Routes location={background || location}>
             <Route path={"/"} element={<AppLayout/>}>
                 <Route index={true} element={<MainPage/>}/>
-                <Route path='ingredients/:ingId' element={<IngredientInfoPage/>} loader={getIngredients}/>
+                <Route path='ingredients/:ingId' element={<IngredientInfoPage/>}/>
                 <Route path={"/login"} element={<OnlyUnAuth element={<LoginPage/>}/>} />
                 <Route path={"/register"} element={<OnlyUnAuth element={<RegisterPage/>}/>} />
                 <Route path={"/forgot-password"} element={<OnlyUnAuth element={<ForgotPasswordPage/>}/>} />
@@ -43,7 +43,7 @@ export default function App(){
         </Routes>
         {background && (
             <Routes>
-                <Route path={"ingredients/:ingId"} element={<Modal closeModal={closeImgModal}><IngredientDetails/></Modal>} loader={getIngredients}/>
+                <Route path={"ingredients/:ingId"} element={<Modal closeModal={closeImgModal}><IngredientDetails/></Modal>}/>
             </Routes>
         )}
     </>)

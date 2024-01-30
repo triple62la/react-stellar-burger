@@ -1,20 +1,42 @@
 import styles from "../login/login-page.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import {useForm} from "../../hooks/useForm";
+import {resetPassword} from "../../utils/api";
+import useNotification from "../../hooks/use-notification";
 
 
 export default function ResetPasswordPage (){
-    const [pasw, setPassw] = useState("")
-    const handlePasswChange = e => setPassw(e.target.value)
-    const [code, setCode] = useState("")
-    const handleCodeChange = e => setCode(e.target.value)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const [showNotification,] = useNotification()
+    useEffect(()=>{
+        if (location.state?.from !== "/forgot-password"){
+            navigate("/login")
+        }
+    })
+   const handleSubmit = (e)=>{
+        e.preventDefault()
+        resetPassword(formData)
+            .then(response=>{
+                if (!response.success && response.response?.message ==="Incorrect reset token"){
+                    showNotification("","Был введен неверный код сброса")
+                } else if(!response.success ) {
+                    showNotification("", response.response?.message || "Произошла ошибка при сбросе пароля")
+                } else if (response.success) {
+                    showNotification("Успех", "Пароль успешно изменен!")
+                }
+            })
+            .catch(err=>showNotification("Произошла ошибка при сбросе пароля", err.message || err))
+   }
+    const {formData, handleInputChange} = useForm({password:"", token:""})
     return (
         <main className={styles.main}>
-            <form className={styles.form} onSubmit={e=>e.preventDefault()}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <h1 className="text text_type_main-medium" >Восстановление пароля</h1>
-                <PasswordInput value={pasw} onChange={handlePasswChange} placeholder={'Введите новый пароль'}/>
-                <Input value={code} placeholder="Введите код из письма" type={"text"} onChange={handleCodeChange}/>
+                <PasswordInput value={formData.password} onChange={handleInputChange} name={"password"} placeholder={'Введите новый пароль'}/>
+                <Input value={formData.token} name={"token"} placeholder="Введите код из письма" type={"text"} onChange={handleInputChange}/>
                 <Button htmlType={"submit"} size={"medium"} type={"primary"}>Сохранить</Button>
             </form>
             <div className={styles["panel-footer"]} style={{marginTop:"80px"}}>

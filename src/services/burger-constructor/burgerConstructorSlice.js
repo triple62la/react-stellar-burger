@@ -28,6 +28,11 @@ const removeIngredientReducer = (state, {payload:ingredient})=>{
     state.totalCost-=ingredient.price
     state.ingredients = state.ingredients.filter(ing=>ing.constructorId!==ingredient.constructorId)
 }
+const resetConstructorReducer = (state)=>{
+    state.ingredients = []
+    state.totalCost = 0
+    state.bun = null
+}
 
 
 export const burgerConstructorSlice = createSlice({
@@ -36,6 +41,7 @@ export const burgerConstructorSlice = createSlice({
     reducers:{
         addIngredient:addIngredientReducer,
         removeIngredient: removeIngredientReducer,
+        resetConstructor:resetConstructorReducer,
         moveIngredient:(state, {payload})=>{
 
             state.ingredients.splice(payload.hoverIndex,0, state.ingredients.splice(payload.dragIndex,1)[0])
@@ -44,6 +50,6 @@ export const burgerConstructorSlice = createSlice({
         }
     }
 })
-export const {addIngredient, removeIngredient, moveIngredient} = burgerConstructorSlice.actions
+export const {addIngredient, removeIngredient, moveIngredient, resetConstructor} = burgerConstructorSlice.actions
 export default burgerConstructorSlice.reducer
 

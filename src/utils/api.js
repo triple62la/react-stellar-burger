@@ -115,3 +115,10 @@ export const patchUserData = async (data)=>{
         return  {response:err.response, success: false, message: "Ошибка при изменении данных пользователя"}
     }
 }
+export const resetPassword = async (data)=>{
+    try{
+        return await request("POST", "/password-reset/reset", {...data}, false)
+    } catch (err){
+        return  {response:err.response, success: false, message: "Ошибка при сбросе пароля"}
+    }
+}

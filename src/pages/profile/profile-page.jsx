@@ -2,9 +2,10 @@ import styles from "./profile-page.module.css"
 import {EmailInput, Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {clearAuthData, handleInputChange} from "../../utils/helpers";
+import {clearAuthData} from "../../utils/helpers";
 import {fetchUserData, logoutUser, patchUserData} from "../../utils/api";
 import useNotification from "../../hooks/use-notification";
+import {useForm} from "../../hooks/useForm";
 
 
 export default function ProfilePage (){
@@ -20,18 +21,19 @@ export default function ProfilePage (){
         return "text text_type_main-medium text_color_inactive"
     }
     const [showNotification, ] = useNotification()
-    const [formData, setFormData] = useState({
+    const {formData,handleInputChange, setFormData} = useForm({
         name:"",
         email:"",
-        password:localStorage.getItem("password")
+        password:localStorage.getItem("password") || ""
 
     })
+
 
     const onInputChange = (e) => {
         if (!fetchedWithErrors && !btnIsVisible){
             setBtnVisible(true)
         }
-         return handleInputChange(e, formData, setFormData)
+         return handleInputChange(e)
     }
 
     useEffect(()=>{
