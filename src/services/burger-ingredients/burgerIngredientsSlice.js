@@ -14,9 +14,7 @@ const initialState = {
 
 export const fetchIngredients = createAsyncThunk(
     "infgrdients/fetch",
-    async ()=>{
-        return  await getIngredients()
-}
+    getIngredients
 )
 
 
@@ -31,7 +29,7 @@ export const burgerConstructorSlice = createSlice({
             const category = state.categories.find(category => category.name === payload.name)
             category.isVisible = payload.isVisible
             const visibleCategories = state.categories.filter(category=>category.isVisible)
-            state.activeTab = visibleCategories[0].name
+            state.activeTab = visibleCategories[0]?.name
         },
 
         setActiveTab:(state, {payload})=>void (state.activeTab=payload),
@@ -43,6 +41,9 @@ export const burgerConstructorSlice = createSlice({
             const ingredient = state.ingredients.find(item=>item._id === payload)
             ingredient.counter = ingredient.counter-1<=0? 0: ingredient.counter - 1
         },
+        resetCounters:(state)=>{
+            state.ingredients.forEach(ingredient=>ingredient.counter = 0)
+        }
     },
     extraReducers: (builder)=>{
         builder.addCase(fetchIngredients.fulfilled,(state, action) => {
@@ -61,7 +62,8 @@ export const {
     setCategoryVisibility,
     setActiveTab,
     incrementCounter,
-    decrementCounter
+    decrementCounter,
+    resetCounters,
 } = burgerConstructorSlice.actions
 
 export default burgerConstructorSlice.reducer

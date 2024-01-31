@@ -8,18 +8,24 @@ import Modal from "../../modals/modal/modal";
 import {getOrderNum} from "../../../utils/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsVisible, setOrderId} from "../../../services/order-modal/orderModalSlice";
-import {addIngredient} from "../../../services/burger-constructor/burgerConstructorSlice";
+import {addIngredient, resetConstructor} from "../../../services/burger-constructor/burgerConstructorSlice";
 import {useDrop} from "react-dnd";
-import {useRef} from "react";
-import {incrementCounter} from "../../../services/burger-ingredients/burgerIngredientsSlice";
+import {useRef, useState} from "react";
+import {incrementCounter, resetCounters} from "../../../services/burger-ingredients/burgerIngredientsSlice";
 import {setVisible as setNotificationVisible, setTitle, setMessage} from "../../../services/notification-modal/notificationModalSlice";
 import DragableItem from "./daragable-item/dragable-item";
+import Preloader from "../../modals/preloader/preloader";
+import preloaderGif from "../../../assets/images/loader.gif"
+import {getAuthData} from "../../../utils/helpers";
+import {useNavigate} from "react-router-dom";
 
 
 export const BurgerConstructor = ()=>{
     const ingredientsListElement = useRef(null)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const ingredients =useSelector(store=>store.burgerConstructor.ingredients)
+    const [spinnerIsVisible, setSpinnerIsVisible] = useState(false)
     const hanldeDrop = (item,)=> {
         dispatch(addIngredient(item))
         if (item.type !=="bun")dispatch(incrementCounter(item._id))
@@ -46,19 +52,26 @@ export const BurgerConstructor = ()=>{
         dispatch(setMessage(msg))
         dispatch(setNotificationVisible(true))
     }
-    const openModal = ()=>{
+    const processOrder = ()=>{
+        setSpinnerIsVisible(true)
         const orderedItems = [...ingredients.map(item=>item._id), bun._id]
         getOrderNum(orderedItems)
             .then(number=>{
                 dispatch(setOrderId(number))
                 dispatch(setIsVisible(true))
+                dispatch(resetConstructor())
+                dispatch(resetCounters())
             })
             .catch(err=>{
                 showNotification("ОЙ","Произошла ошибка во время обработки заказа")
                 console.error(err)
             })
+            .finally(()=>setSpinnerIsVisible(false))
     }
-
+    const handleOrderClick =() => {
+        const {isAuthorized} = getAuthData()
+        isAuthorized?processOrder():navigate("/login")
+    }
     return (
         <div ref={dropTarget} className={clsx(classes.wrapper, {[classes.drag_over]:isHover})}>
             {bun && <ConstructorElement  extraClass={clsx("ml-7 mt-3", classes.bun)}
@@ -90,13 +103,14 @@ export const BurgerConstructor = ()=>{
                 <p className="text text_type_digits-medium pr-10">{totalCost}
                     <CurrencyIcon  type="primary"/>
                 </p>
-                <Button onClick={openModal}  htmlType="button" type="primary" size="large" disabled={!bun }>
+                <Button onClick={handleOrderClick}  htmlType="button" type="primary" size="large" disabled={!bun }>
                     Оформить заказ
                 </Button>
             </div>
             {modalIsVisible && <Modal closeModal={closeModal}>
                 <OrderDetails />
             </Modal>}
+            {spinnerIsVisible && <Preloader fetchStatus={"pending"} image={preloaderGif}/>}
         </div>
     )
 }
