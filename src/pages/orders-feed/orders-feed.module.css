@@ -1,0 +1,19 @@
+.main{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 1240px;
+    width: 100%;
+    row-gap: 20px;
+}
+.content{
+    display: flex;
+    margin: 0 auto;
+    column-gap: 60px;
+    width: 100%;
+}
+.section{
+    display: flex;
+    max-width: 580px;
+    width: 100%;
+}

@@ -1,0 +1,10 @@
+.section{
+    display: flex;
+    column-gap: 60px;
+    margin-left: 60px;
+}
+
+
+.finished-orders{
+    color: #0CC;
+}
