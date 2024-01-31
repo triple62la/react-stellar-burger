@@ -3,11 +3,11 @@
     flex-direction: column;
     row-gap: 16px;
     width: 100%;
-    max-width: 584px;
+    max-width: 620px;
     max-height: calc(100vh - 88px - 20px - 80px - 20px - 30px);
     overflow-y: scroll;
     padding-right: 8px;
-
+    box-sizing: border-box;
 }
 
 .order-card {

@@ -18,7 +18,7 @@ export default function Orders (){
 
                                     return (
                                     <li>
-                                        <img style={{["z-index"]:[arr.length-index]}} className={styles["ingredient-img"]} src="https://code.s3.yandex.net/react/code/bun-01.png" alt=""/>
+                                        <img style={{zIndex:[arr.length-index]}} className={styles["ingredient-img"]} src="https://code.s3.yandex.net/react/code/bun-01.png" alt=""/>
                                     </li>)})}
                                 </ul>
                             </div>

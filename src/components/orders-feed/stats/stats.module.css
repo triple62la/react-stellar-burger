@@ -1,9 +1,19 @@
 .section{
     display: flex;
-    column-gap: 60px;
+    flex-direction: column;
+    row-gap: 60px;
     margin-left: 60px;
 }
+.orders{
+    display: flex;
+    justify-content: space-between;
 
+}
+.items{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
 
 .finished-orders{
     color: #0CC;
