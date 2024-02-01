@@ -14,6 +14,7 @@ import IngredientDetails from "./components/modals/ingredient-details/ingredient
 import {fetchIngredients} from "./services/burger-ingredients/burgerIngredientsSlice";
 import {useDispatch} from "react-redux";
 import OrdersFeedPage from "./pages/orders-feed/orders-feed-page";
+import {OrderDetails} from "./pages/order-details/order-details";
 
 export default function App(){
     const dispatch = useDispatch()
@@ -41,6 +42,8 @@ export default function App(){
                 <Route path={"/reset-password"} element={<OnlyUnAuth element={<ResetPasswordPage/>}/>} />
                 <Route path={"/profile"} element={<OnlyAuth element={<ProfilePage/>}/>} />
                 <Route path={"/feed"} element={<OrdersFeedPage/>}></Route>
+                <Route path={"feed/:orderNum"} element={<OrderDetails/>}/>
+
             </Route>
         </Routes>
         {background && (

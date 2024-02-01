@@ -122,3 +122,10 @@ export const resetPassword = async (data)=>{
         return  {response:err.response, success: false, message: "Ошибка при сбросе пароля"}
     }
 }
+export const getOrderDetails = async orderNum => {
+    try{
+        return await request("GET", `/orders/${orderNum}`, null, false)
+    } catch (err){
+        return  {response:err.response, success: false, message: "Ошибка при запросе подробностей ингредиента"}
+    }
+}
