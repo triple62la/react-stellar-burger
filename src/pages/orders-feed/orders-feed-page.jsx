@@ -7,10 +7,10 @@ export default function OrdersFeedPage (){
         <main className={styles.main}>
             <h1 className={"text text_type_main-large mt-10"}>Лента заказов</h1>
             <div className={styles.content}>
-                <section className={styles.section}>
+                <section className={styles["orders-section"]}>
                     <Orders/>
                 </section>
-                <section className={styles.section}>
+                <section className={styles["stats-section"]}>
                     <Stats/>
                 </section>
             </div>

@@ -1,18 +1,15 @@
-.section{
-    display: flex;
-    flex-direction: column;
-    row-gap: 60px;
-    margin-left: 60px;
-}
+
 .orders{
     display: flex;
-    justify-content: space-between;
-
+    width: 100%;
+    column-gap: 100px;
 }
 .items{
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px 40px;
+
 }
 
 .finished-orders{

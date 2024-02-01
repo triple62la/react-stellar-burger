@@ -1,9 +1,9 @@
 .cards-list{
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
+    row-gap: 15px;
     width: 100%;
-    max-width: 620px;
+    /*max-width: 600px;*/
     max-height: calc(100vh - 88px - 20px - 80px - 20px - 30px);
     overflow-y: scroll;
     padding-right: 8px;
@@ -36,8 +36,8 @@
     max-width: 100%;
 }
 .ingredient-img{
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px #4C4CFF solid;
