@@ -1,28 +1,24 @@
 import styles from "./orders-feed.module.css"
 import Orders from "../../components/orders-feed/orders/orders";
 import Stats from "../../components/orders-feed/stats/stats";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {ORDERS_FEED_WS_CONNECT, ORDERS_FEED_WS_DISCONNECT} from "../../services/orders-feed/actions";
+import {ORDERS_FEED_WS_CONNECT as wsConnect, ORDERS_FEED_WS_DISCONNECT as wsDisconnect} from "../../services/orders-feed/actions";
+import {selectOrders} from "../../services/orders-feed/selectors";
 
 export default function OrdersFeedPage (){
     const dispatch = useDispatch()
     useEffect(()=>{
-        // const socket = new WebSocket("wss://norma.nomoreparties.space/orders/all")
-        // socket.onmessage=evt=>{
-        //     const parsedData = JSON.parse(evt.data);
-        //     console.log(parsedData)
-        // }
-        dispatch(ORDERS_FEED_WS_CONNECT("wss://norma.nomoreparties.space/orders/all"))
-        return ()=> dispatch(ORDERS_FEED_WS_DISCONNECT())
+        dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"))
+        return ()=> dispatch(wsDisconnect())
     },[dispatch])
-
+    const orders = useSelector(selectOrders)
     return (
         <main className={styles.main}>
             <h1 className={"text text_type_main-large mt-10"}>Лента заказов</h1>
             <div className={styles.content}>
                 <section className={styles["orders-section"]}>
-                    <Orders/>
+                    <Orders orders={orders}/>
                 </section>
                 <section className={styles["stats-section"]}>
                     <Stats/>
