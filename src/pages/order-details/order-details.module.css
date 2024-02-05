@@ -1,0 +1,17 @@
+.section{
+    margin: 122px  auto 0;
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.order-number{
+    text-align: center;
+    margin-bottom: 40px;
+}
+.order-status{
+    color: #00CCCC;
+    margin-bottom: 60px;
+    margin-top: 12px;
+}

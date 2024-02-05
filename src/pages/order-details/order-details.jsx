@@ -4,8 +4,8 @@ import {getOrderDetails} from "../../utils/api";
 import {useParams} from "react-router-dom";
 import Preloader from "../../components/modals/preloader/preloader";
 import preloaderGif from "../../assets/images/loader.gif"
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IngredientsList} from "../../components/order-details/ingredients-list/ingredients-list";
+import clsx from "clsx";
 
 export const OrderDetails=()=>{
     const {orderNum} = useParams()
@@ -25,28 +25,15 @@ export const OrderDetails=()=>{
     }, [])
     const statusTranslateMapper = {"done": "Выполнен"}
    return (
-       <section>
+       <section className={styles.section}>
             {Object.keys(order).length<1 && <Preloader fetchStatus={"pending"} image={preloaderGif}/>}
             {Object.keys(order).length>0 &&
         <>
-       <p className={`${styles[`order-number`]} text text_type_digits-default`}>{order.number}</p>
+       <p className={clsx(styles["order-number"],"text text_type_digits-default" ) }>{"#"+order.number}</p>
        <h2 className="text text_type_main-medium">{order.name}</h2>
-       <p className={`${styles[`order-status`]} text text_type_main-default`}>{statusTranslateMapper[order.status] || order.status}</p>
-       <p className="text text_type_main-medium">Состав:</p>
+       <p className={clsx(styles["order-status"], "text text_type_main-default")}>{statusTranslateMapper[order.status] || order.status}</p>
+       <p className="text text_type_main-medium mb-6">Состав:</p>
         <IngredientsList order={order}/>
-
-       <div className={"styles.summary"}>
-           <div>
-               <div className={"text text_type_main-default text_color_inactive"} > ffffffffffffffffffff</div>
-               <span
-                   className="text text_type_main-default text_color_inactive">&nbsp;i-GMT+3</span>
-           </div>
-           <div className={styles.total}>
-                           <span
-                               className="text text_type_digits-default">{"getIngredientsTotalPrice(ingredientCount, allIngredients)"}</span>
-               <CurrencyIcon type="primary"/>
-           </div>
-       </div>
         </>}
    </section>)
 

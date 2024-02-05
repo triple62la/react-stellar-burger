@@ -15,6 +15,7 @@ import {fetchIngredients} from "./services/burger-ingredients/burgerIngredientsS
 import {useDispatch} from "react-redux";
 import OrdersFeedPage from "./pages/orders-feed/orders-feed-page";
 import {OrderDetails} from "./pages/order-details/order-details";
+import NotFoundPage from "./pages/not-found/not-found-page";
 
 export default function App(){
     const dispatch = useDispatch()
@@ -43,12 +44,13 @@ export default function App(){
                 <Route path={"/profile"} element={<OnlyAuth element={<ProfilePage/>}/>} />
                 <Route path={"/feed"} element={<OrdersFeedPage/>}></Route>
                 <Route path={"feed/:orderNum"} element={<OrderDetails/>}/>
-
+                <Route path={"*"} element={<NotFoundPage/>}/>
             </Route>
         </Routes>
         {background && (
             <Routes>
                 <Route path={"ingredients/:ingId"} element={<Modal closeModal={closeImgModal}><IngredientDetails/></Modal>}/>
+                <Route path={"feed/:orderNum"} element={<Modal closeModal={closeImgModal}><OrderDetails/> </Modal> }/>
             </Routes>
         )}
     </>)

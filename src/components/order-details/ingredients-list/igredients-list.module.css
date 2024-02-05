@@ -1,0 +1,37 @@
+.ingredients{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    max-height: 456px;
+
+}
+.ingredient{
+    width: 100%;
+    display: flex;
+
+}
+.ingredient-img{
+    width: 64px;
+    height: 64px;
+    border: 2px #4C4CFF solid;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.ingredient-name{
+    margin: 0 16px;
+    width: 100%;
+}
+.ingredient-price{
+    display: flex;
+    column-gap: 8px;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+.total-price{
+    display: flex;
+    column-gap: 8px;
+}

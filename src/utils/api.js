@@ -12,12 +12,13 @@ const getToken = async ()=>{
     return token
 }
 
-const refreshToken = async () =>{
+export const refreshToken = async () =>{
 
     const refreshToken = localStorage.getItem("refreshToken")
     const response = await request("POST",  "/auth/token", {token:refreshToken})
     localStorage.setItem("refreshToken", response.refreshToken)
     localStorage.setItem("accessToken", response.accessToken)
+    return response
 }
 
 const tokenIsExpired = (token)=>{

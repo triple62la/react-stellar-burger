@@ -1,11 +1,15 @@
 import styles from "./orders.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
+import {useSelector} from "react-redux";
+import {selectOrders} from "../../../services/orders-feed/selectors";
 
 export default function Orders (){
+    const orders = useSelector(selectOrders())
+
    return (
            <ul className={clsx(styles["cards-list"], "custom-scroll") }>
-               {[0,0,0,0].map(()=>{
+               {orders.map((order)=>{
                     return (<li className={styles["order-card"]}>
                         <div className={styles.metadata}>
                             <p className={"text text_type_digits-default"}>#034535</p>
@@ -14,7 +18,7 @@ export default function Orders (){
                         <h2 className={"text text_type_main-medium"}>Death Star Starship Main бургер</h2>
                         <div className={styles.components}>
                             <div>
-                                <ul className={styles.ingredients}> {[0,1,2,3,4,5].map((_,index, arr)=>{
+                                <ul className={styles.ingredients}> {order.ingredients.map((_,index, arr)=>{
 
                                     return (
                                     <li>
