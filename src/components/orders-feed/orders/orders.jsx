@@ -13,7 +13,7 @@ export default function Orders ({orders}){
     const navigate = useNavigate()
     const handleOrderClick= orderNum => e => {
 
-        navigate(`/feed/${orderNum}`, {state:{backgroundLocation:location}})
+        navigate(location.pathname+"/"+orderNum, {state:{backgroundLocation:location}})
 
     }
    return (

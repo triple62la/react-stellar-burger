@@ -39,15 +39,17 @@ export default function App(){
             <Route path={"/"} element={<AppLayout/>}>
                 <Route index={true} element={<MainPage/>}/>
                 <Route path='ingredients/:ingId' element={<IngredientInfoPage/>}/>
-                <Route path={"/login"} element={<OnlyUnAuth element={<LoginPage/>}/>} />
-                <Route path={"/register"} element={<OnlyUnAuth element={<RegisterPage/>}/>} />
-                <Route path={"/forgot-password"} element={<OnlyUnAuth element={<ForgotPasswordPage/>}/>} />
-                <Route path={"/reset-password"} element={<OnlyUnAuth element={<ResetPasswordPage/>}/>} />
-                <Route path={"/profile"} element={<OnlyAuth element={<ProfilePage/>}/>}>
+                <Route path={"login"} element={<OnlyUnAuth element={<LoginPage/>}/>} />
+                <Route path={"register"} element={<OnlyUnAuth element={<RegisterPage/>}/>} />
+                <Route path={"forgot-password"} element={<OnlyUnAuth element={<ForgotPasswordPage/>}/>} />
+                <Route path={"reset-password"} element={<OnlyUnAuth element={<ResetPasswordPage/>}/>} />
+
+                <Route path={"profile"} element={<OnlyAuth element={<ProfilePage/>}/>}>
                     <Route index={true} element={<ProfileDetails/>}/>
-                    <Route path={"/profile/orders"} element={<ProfileOrders/>}/>
+                    <Route path={"orders"} element={<ProfileOrders/>}/>
+                    <Route path={'orders/:orderNum'} element={<OrderDetails/>}/>
                 </Route>
-                <Route path={"/feed"} element={<OrdersFeedPage/>}></Route>
+                <Route path={"feed"} element={<OrdersFeedPage/>}></Route>
                 <Route path={"feed/:orderNum"} element={<OrderDetails/>}/>
                 <Route path={"*"} element={<NotFoundPage/>}/>
             </Route>
@@ -56,6 +58,11 @@ export default function App(){
             <Routes>
                 <Route path={"ingredients/:ingId"} element={<Modal closeModal={closeImgModal}><IngredientDetails/></Modal>}/>
                 <Route path={"feed/:orderNum"} element={<Modal closeModal={closeImgModal}><OrderDetails/> </Modal> }/>
+                <Route path={'/profile/orders/:orderNum'} element={
+                    <Modal closeModal={closeImgModal}>
+                        <OrderDetails/>
+                    </Modal>}>
+                </Route>
             </Routes>
         )}
     </>)

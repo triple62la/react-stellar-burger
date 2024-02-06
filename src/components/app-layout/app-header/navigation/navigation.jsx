@@ -24,7 +24,7 @@ export function Navigation (){
                 <Logo/>
             </Link>
 
-        <NavLink title="Личный кабинет" to={"/profile"}>
+        <NavLink title="Личный кабинет" to={"/profile"} >
             <ProfileIcon type={pathname.startsWith('/profile') ? 'primary' : 'secondary'}/>
         </NavLink>
     </nav>
