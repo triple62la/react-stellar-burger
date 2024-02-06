@@ -1,0 +1,14 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}
+.btns-panel {
+    display: flex;
+    gap: 15px;
+    /*width: fit-content;*/
+    align-self: flex-end;
+}
+.submit {
+    width: fit-content;
+}

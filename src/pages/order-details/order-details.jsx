@@ -1,7 +1,7 @@
 import styles from "./order-details.module.css"
 import {useEffect, useState} from "react";
 import {getOrderDetails} from "../../utils/api";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Preloader from "../../components/modals/preloader/preloader";
 import preloaderGif from "../../assets/images/loader.gif"
 import {IngredientsList} from "../../components/order-details/ingredients-list/ingredients-list";
@@ -10,22 +10,20 @@ import clsx from "clsx";
 export const OrderDetails=()=>{
     const {orderNum} = useParams()
     const [order, setOrder] = useState({})
-
+    const background = useLocation().state?.backgroundLocation
     useEffect(()=>{
         getOrderDetails(orderNum)
             .then(response=>{
                 if (response.success){
                     setOrder({...response.orders.at(0)})
-
                 }
-
             })
             .catch(err=>console.log(err))
 
     }, [])
     const statusTranslateMapper = {"done": "Выполнен"}
    return (
-       <section className={styles.section}>
+       <section className={styles.section} style={{marginTop:background?"0":"82px"}}>
             {Object.keys(order).length<1 && <Preloader fetchStatus={"pending"} image={preloaderGif}/>}
             {Object.keys(order).length>0 &&
         <>

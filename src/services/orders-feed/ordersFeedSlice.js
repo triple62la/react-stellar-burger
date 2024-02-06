@@ -45,6 +45,7 @@ export const ordersFeedSlice = createSlice({
             state.totalToday = action.payload.totalToday;
             state.isInitialDataLoaded = true;
         })
+
     }
 })
 export default ordersFeedSlice.reducer

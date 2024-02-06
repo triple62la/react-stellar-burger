@@ -16,6 +16,8 @@ import {useDispatch} from "react-redux";
 import OrdersFeedPage from "./pages/orders-feed/orders-feed-page";
 import {OrderDetails} from "./pages/order-details/order-details";
 import NotFoundPage from "./pages/not-found/not-found-page";
+import {ProfileDetails} from "./components/profile/profile-details/profile-details";
+import {ProfileOrders} from "./components/profile/profile-orders/profile-orders";
 
 export default function App(){
     const dispatch = useDispatch()
@@ -41,7 +43,10 @@ export default function App(){
                 <Route path={"/register"} element={<OnlyUnAuth element={<RegisterPage/>}/>} />
                 <Route path={"/forgot-password"} element={<OnlyUnAuth element={<ForgotPasswordPage/>}/>} />
                 <Route path={"/reset-password"} element={<OnlyUnAuth element={<ResetPasswordPage/>}/>} />
-                <Route path={"/profile"} element={<OnlyAuth element={<ProfilePage/>}/>} />
+                <Route path={"/profile"} element={<OnlyAuth element={<ProfilePage/>}/>}>
+                    <Route index={true} element={<ProfileDetails/>}/>
+                    <Route path={"/profile/orders"} element={<ProfileOrders/>}/>
+                </Route>
                 <Route path={"/feed"} element={<OrdersFeedPage/>}></Route>
                 <Route path={"feed/:orderNum"} element={<OrderDetails/>}/>
                 <Route path={"*"} element={<NotFoundPage/>}/>

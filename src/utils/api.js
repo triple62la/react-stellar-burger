@@ -67,7 +67,7 @@ export const getIngredients = async ()=> {
 }
 
 export const getOrderNum = async (ingredientsId) => {
-    const response = await request("POST", "/orders", {ingredients:ingredientsId})
+    const response = await request("POST", "/orders", {ingredients:ingredientsId}, true)
     return response.order.number
 }
 

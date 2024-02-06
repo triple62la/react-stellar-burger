@@ -20,6 +20,7 @@
     padding: 24px;
     box-sizing: border-box;
     column-gap: 24px;
+    cursor: pointer;
 }
 .metadata{
     display: flex;

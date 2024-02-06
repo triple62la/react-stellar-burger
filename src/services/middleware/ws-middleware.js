@@ -53,6 +53,7 @@ export const wsMiddleware = (wsActions) => {
                 };
 
                 if (wsTokenRefresh && type === wsTokenRefresh.type) {
+                    console.log("WS: Token is not valid")
                     console.log('refreshing token...')
                     try {
                         const response = await refreshToken();

@@ -3,33 +3,20 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 import {useSelector} from "react-redux";
 import {selectAllIngredients} from "../../../services/burger-ingredients/selector";
 import clsx from "clsx";
+import {mapIngredients} from "../../../utils/helpers";
+
+
+
 export const IngredientsList = ({order}) =>{
 
     const allIngredients = useSelector(state => selectAllIngredients(state))
     const orderIngredients = order.ingredients
-    let summary=0;
-    const setIngredientsMapper = ()=>{
-        const mapper = {}
-        orderIngredients.forEach((ingId,index, array)=>{
-            const ingData = allIngredients.find(ing=>ing._id === ingId)
-            summary+=ingData.price
-            const count = array.reduce((acc, curr)=>{
-                if (curr === ingData._id){
-                    return ++acc
-                }
-                return acc
-            }, 0)
-            mapper[ingId] = {...ingData, count}
-        })
-        return mapper
-    }
-
-
+    const {mapper,summary} = mapIngredients(orderIngredients, allIngredients)
+    const overflow = Object.keys(mapper).length>3?"scroll":"hidden"
    return ( <>
-    <ul className={clsx(styles.ingredients, "custom-scroll")}>
-        {Object.values(setIngredientsMapper()).map(({_id, image_mobile, name, count, price })=>{
+    <ul className={clsx(styles.ingredients, "custom-scroll")} style={{overflowY:overflow}}>
+        {Object.values(mapper).map(({_id, image_mobile, name, count, price })=>{
             return  <li key={_id}  className={styles.ingredient}>
-
                         <img className={styles["ingredient-img"]} src={image_mobile} alt={name}/>
                         <h3 className={clsx(styles["ingredient-name"],"text text_type_main-default")}>{name}</h3>
                         <div className={styles["ingredient-price"]}>
