@@ -16,7 +16,6 @@ export default function ProfilePage (){
         }
         return "text text_type_main-medium text_color_inactive"
     }
-    console.log(location)
     const handleLogoutClick = (e) =>{
         e.preventDefault()
         logoutUser(localStorage.getItem("refreshToken"))

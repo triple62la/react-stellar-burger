@@ -13,7 +13,9 @@ export const ProfileOrders = ()=>{
     const {accessToken} =  getAuthData()
 
     useEffect(()=>{
-        dispatch(wsConnect(`wss://norma.nomoreparties.space/orders?token=${accessToken.replace("Bearer ", "")}`))
+
+        dispatch(wsConnect(
+           `wss://norma.nomoreparties.space/orders?token=${accessToken.replace("Bearer ", "")}`))
         return ()=>{dispatch(wsDisconnect())
         }
     },[dispatch])

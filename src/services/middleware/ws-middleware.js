@@ -8,7 +8,6 @@ export const wsMiddleware = (wsActions) => {
         let isDisconnect = false; // the socket is closed intentionally
         let reconnectDelay = 1000;
         let initialWsUrl = '';
-
         return (next) => async (action) => { // 'next' is a Redux middleware API function used to pass the action to the next middleware in line
             const {dispatch} = store;
             const {type, payload} = action; // determine the kind of action being handled
@@ -26,12 +25,12 @@ export const wsMiddleware = (wsActions) => {
 // If the dispatched action type matches the wsConnect action, a new WebSocket connection
 // is established with the URL provided in the action payload.
             if (type === wsConnect.type) {
-                initialWsUrl = payload;
+                initialWsUrl = new URL(payload);
                 // Close the existing socket if it exists before creating a new one
                 if (socket) {
                     socket.close();
                 }
-                socket = new WebSocket(action.payload);
+                socket = new WebSocket(initialWsUrl.toString());
                 dispatch(wsConnecting());
             }
 // Defines a handler for the open event on the WebSocket, which dispatches the onOpen action
@@ -60,10 +59,10 @@ export const wsMiddleware = (wsActions) => {
                         if (response.success) {
                             console.log('setting tokens...')
                             // Reconnect with the new token
-                            const newWsUrl = `${WS_URL}/orders?token=${response.accessToken.replace('Bearer ', '')}`;
+                            initialWsUrl.searchParams.set("token",response.accessToken.replace('Bearer ', ''))
                             socket.close(); // Close the old socket before opening a new one
                             console.log('opening new connection...')
-                            socket = new WebSocket(newWsUrl);
+                            socket = new WebSocket(initialWsUrl.toString());
                             dispatch(wsConnecting());
                         }
                     } catch (error) {
