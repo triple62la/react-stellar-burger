@@ -49,3 +49,22 @@ export const clearAuthData = ()=>{
     }
 }
 
+export const mapIngredients=(ingArr,allIngredients)=>{
+
+    let summary = 0
+    const mapper = {}
+    ingArr.forEach((ingId,index, array)=>{
+        const ingData = allIngredients.find(ing=>ing._id === ingId)
+        if (ingData){
+            summary+=ingData?.price || 0
+            const count = array.reduce((acc, curr)=>{
+                if (curr === ingData._id){
+                    return ++acc
+                }
+                return acc
+            }, 0)
+            mapper[ingId] = {...ingData, count}
+        }
+    })
+    return {mapper, summary}
+}

@@ -1,0 +1,17 @@
+
+.orders{
+    display: flex;
+    width: 100%;
+    column-gap: 100px;
+}
+.items{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px 40px;
+
+}
+
+.finished-orders{
+    color: #0CC;
+}

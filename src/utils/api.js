@@ -12,12 +12,13 @@ const getToken = async ()=>{
     return token
 }
 
-const refreshToken = async () =>{
+export const refreshToken = async () =>{
 
     const refreshToken = localStorage.getItem("refreshToken")
     const response = await request("POST",  "/auth/token", {token:refreshToken})
     localStorage.setItem("refreshToken", response.refreshToken)
     localStorage.setItem("accessToken", response.accessToken)
+    return response
 }
 
 const tokenIsExpired = (token)=>{
@@ -66,7 +67,7 @@ export const getIngredients = async ()=> {
 }
 
 export const getOrderNum = async (ingredientsId) => {
-    const response = await request("POST", "/orders", {ingredients:ingredientsId})
+    const response = await request("POST", "/orders", {ingredients:ingredientsId}, true)
     return response.order.number
 }
 
@@ -120,5 +121,12 @@ export const resetPassword = async (data)=>{
         return await request("POST", "/password-reset/reset", {...data}, false)
     } catch (err){
         return  {response:err.response, success: false, message: "Ошибка при сбросе пароля"}
+    }
+}
+export const getOrderDetails = async orderNum => {
+    try{
+        return await request("GET", `/orders/${orderNum}`, null, false)
+    } catch (err){
+        return  {response:err.response, success: false, message: "Ошибка при запросе подробностей ингредиента"}
     }
 }
